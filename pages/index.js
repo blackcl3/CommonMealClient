@@ -1,9 +1,17 @@
+import { useEffect } from 'react';
+import { getRecipebyID, getRecipeByIngredient } from '../api/spoonacularData';
 import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 
 function Home() {
   const { user } = useAuth();
 
+  const spoonAPICalls = () => {
+    getRecipeByIngredient().then(getRecipebyID());
+  };
+  useEffect(() => {
+    spoonAPICalls();
+  }, []);
   return (
     <div
       className="text-center d-flex flex-column justify-content-center align-content-center"
