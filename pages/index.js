@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 import { getRecipebyID, getRecipeByIngredient } from '../api/spoonacularData';
 import { useAuth } from '../utils/context/authContext';
 
@@ -27,9 +28,9 @@ function Home() {
         <h1 className="landingPageh1">Your</h1>
         <h1 className="landingPageh1">(Kitchen)</h1>
         <h1 className="landingPageh1">Waste</h1>
-        <button className="btn btn-primary btn-lg copy-btn" type="button">
+        <Button className="btn btn-primary btn-lg copy-btn" type="button" href="food/myFood">
           Get Started
-        </button>
+        </Button>
       </div>
     </div>
   );
