@@ -4,8 +4,11 @@ import getUserFoodItems from './foodItemData';
 const getFoodItemandCategories = (uid) => new Promise((resolve, reject) => {
   getUserFoodItems(uid)
     .then((foodArr) => {
-      console.warn(foodArr);
-      Promise.all(foodArr.map((foodObj) => getSingleFoodCategory(foodObj.categoryFirebaseKey))).then(resolve);
+      const getFoodItemCategories = foodArr.map(
+        (foodObj) => getSingleFoodCategory(foodObj.categoryFirebaseKey)
+          .then((categoryObj) => ({ ...foodObj, categoryName: categoryObj.name })),
+      );
+      Promise.all(getFoodItemCategories).then(resolve);
     })
     .catch(reject);
 });

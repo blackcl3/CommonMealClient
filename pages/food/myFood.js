@@ -12,12 +12,11 @@ export default function MyFoodPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.warn(foodObject, 'looking for this one');
+
   return (
     <div>
       <div>myFoodPage</div>
-      { foodObject?.map((foodItem) => (
-        <p>{ foodItem.name } </p>
-      ))}
     </div>
   );
 }

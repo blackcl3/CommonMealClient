@@ -11,7 +11,7 @@ const getFoodCategories = () => new Promise((resolve, reject) => {
 
 const getSingleFoodCategory = (categoryFirebaseKey) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/category/${categoryFirebaseKey}.json`)
-    .then((response) => Object.values(response.data))
+    .then((response) => resolve(response.data))
     .catch(reject);
 });
 
