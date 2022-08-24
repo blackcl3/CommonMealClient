@@ -17,8 +17,6 @@ export default function MyFoodPage() {
     console.warn(foodObject, 'inside useeffect');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.warn(foodObject, 'this one should show array');
   return (
     <>
       <div>
