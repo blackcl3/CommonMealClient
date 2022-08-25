@@ -21,11 +21,11 @@ export default function MyFoodPage() {
     <>
       <div>
         <div>
-          <h1>{user.displayName}&apos;s Kitchen</h1>
+          <h1 className="my-food-page-title">{user.displayName}&apos;s Kitchen</h1>
         </div>
         <div className="food-card-container container">
           {foodObject?.map((foodItem) => (
-            <MyFoodItemCard obj={foodItem} onChange={getFoodItemandCategories} />
+            <MyFoodItemCard key={foodItem.foodItemFirebaseKey} obj={foodItem} onChange={getFoodItemandCategories} />
           ))}
         </div>
       </div>
