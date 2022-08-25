@@ -30,3 +30,22 @@ body {
 .navbar-brand {
   color: #ddf4fa;
 }
+
+.food-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.food-card {
+  width: 300px;
+}
+
+.food-card-title-div {
+  text-align: center;
+}
+
+.food-card-button-group{
+  justify-content: center;
+  text-align: center;
+}

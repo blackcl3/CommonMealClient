@@ -1,16 +1,32 @@
-import PropTypes, { string } from 'prop-types';
+import PropTypes, { bool, string } from 'prop-types';
 import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import { Recycle, PencilSquare, Trash3Fill } from 'react-bootstrap-icons';
+import { Button, Card } from 'react-bootstrap';
 
 export default function MyFoodItemCard({ obj }) {
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={obj.photoUrl} />
-      <Card.Body>
-        <Card.Title>{obj.name}</Card.Title>
-        <Card.Text>Description Here.</Card.Text>
-        <Button variant="primary">Go somewhere</Button>
+    <Card className="food-card">
+      <Card.Img variant="top" src={obj.photoURL} />
+      <Card.Body className="food-card-body">
+        <div className="food-card-title-div">
+          <Card.Title>{obj.name}</Card.Title>
+          <Card.Subtitle>{obj.categoryName}</Card.Subtitle>
+        </div>
+
+        <br />
+        <Card.Subtitle>date added: {obj.dateAddedToDB}</Card.Subtitle>
+        <Card.Text>description: &quot;{obj.description}&quot;</Card.Text>
+        <div className="food-card-button-group">
+          <Button size="lg">
+            <Recycle />
+          </Button>
+          <Button variant="outline-primary" size="lg">
+            <PencilSquare />
+          </Button>
+          <Button variant="danger" size="lg">
+            <Trash3Fill />
+          </Button>
+        </div>
       </Card.Body>
     </Card>
   );
@@ -18,9 +34,11 @@ export default function MyFoodItemCard({ obj }) {
 
 MyFoodItemCard.propTypes = {
   obj: PropTypes.shape({
+    description: string,
     name: string,
     categoryName: string,
-    photoUrl: string,
-    isPublic: Boolean,
+    photoURL: string,
+    isPublic: bool,
+    dateAddedToDB: string,
   }).isRequired,
 };

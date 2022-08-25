@@ -20,10 +20,14 @@ export default function MyFoodPage() {
   return (
     <>
       <div>
-        <div>myFoodPage</div>
-        {foodObject?.map((foodItem) => (
-          <MyFoodItemCard obj={foodItem} onChange={getFoodItemandCategories} />
-        ))}
+        <div>
+          <h1>{user.displayName}&apos;s Kitchen</h1>
+        </div>
+        <div className="food-card-container container">
+          {foodObject?.map((foodItem) => (
+            <MyFoodItemCard obj={foodItem} onChange={getFoodItemandCategories} />
+          ))}
+        </div>
       </div>
     </>
   );
