@@ -25,7 +25,7 @@ export default function MyFoodPage() {
         </div>
         <div className="food-card-container container">
           {foodObject?.map((foodItem) => (
-            <MyFoodItemCard obj={foodItem} onChange={getFoodItemandCategories} />
+            <MyFoodItemCard key={foodItem.foodItemFirebaseKey} obj={foodItem} onChange={getFoodItemandCategories} />
           ))}
         </div>
       </div>
