@@ -9,10 +9,11 @@ export default function MyFoodItemCard({ obj }) {
       <Card.Img variant="top" src={obj.photoURL} />
       <Card.Body className="food-card-body">
         <div className="food-card-title-div">
-          <Card.Title>{obj.name}</Card.Title>
+          <h2>{obj.name}</h2>
         </div>
         <Card.Subtitle>category: {obj.categoryName}</Card.Subtitle>
-        <Card.Text>added: {obj.dateAddedToDB}</Card.Text>
+        <Card.Subtitle>location: {obj.location}</Card.Subtitle>
+        <Card.Subtitle>added: {obj.dateAddedToDB}</Card.Subtitle>
         <Card.Text>description: &quot;{obj.description}&quot;</Card.Text>
         <div className="food-card-button-group">
           <Button size="lg">
@@ -38,5 +39,6 @@ MyFoodItemCard.propTypes = {
     photoURL: string,
     isPublic: bool,
     dateAddedToDB: string,
+    location: string,
   }).isRequired,
 };
