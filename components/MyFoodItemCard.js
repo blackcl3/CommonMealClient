@@ -10,11 +10,9 @@ export default function MyFoodItemCard({ obj }) {
       <Card.Body className="food-card-body">
         <div className="food-card-title-div">
           <Card.Title>{obj.name}</Card.Title>
-          <Card.Subtitle>{obj.categoryName}</Card.Subtitle>
         </div>
-
-        <br />
-        <Card.Subtitle>date added: {obj.dateAddedToDB}</Card.Subtitle>
+        <Card.Subtitle>category: {obj.categoryName}</Card.Subtitle>
+        <Card.Text>added: {obj.dateAddedToDB}</Card.Text>
         <Card.Text>description: &quot;{obj.description}&quot;</Card.Text>
         <div className="food-card-button-group">
           <Button size="lg">
