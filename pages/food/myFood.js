@@ -20,7 +20,7 @@ export default function MyFoodPage() {
   return (
     <>
       <div>
-        <div>
+        <div className="my-food-page-title-div">
           <h1 className="my-food-page-title">{user.displayName}&apos;s Kitchen</h1>
         </div>
         <div className="food-card-container container">

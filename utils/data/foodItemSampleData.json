@@ -1,63 +1,67 @@
 {
   "-NA6z3RNaSC6iCwm2K5D": {
-    "foodItemFirebaseKey": "-NA6z3RNaSC6iCwm2K5D",
-    "name": "banana",
     "categoryFirebaseKey": "-NA74blHij8rjdddv7C9",
     "dateAddedToDB": "08-22-2022",
     "dateAddedToLocation": "08-22-2022",
-    "photoURL": "https://api.iconify.design/noto:banana.svg",
-    "uid": "b7jk3WcOXmbb7jJ15MO9SZMYH2E2",
-    "status": "open",
+    "description": "pretty, pretty good banana",
+    "foodItemFirebaseKey": "-NA6z3RNaSC6iCwm2K5D",
     "isPublic": true,
-    "location": "pantry" 
+    "location": "pantry",
+    "name": "banana",
+    "photoURL": "https://api.iconify.design/noto:banana.svg",
+    "status": "open",
+    "uid": "b7jk3WcOXmbb7jJ15MO9SZMYH2E2"
   },
   "-NA70QMbYihqja4sw7Z8": {
-    "foodItemFirebaseKey": "-NA70QMbYihqja4sw7Z8",
-    "name": "carrot",
     "categoryFirebaseKey": "-NA758iTQWFV6YqkzBlD",
     "dateAddedToDB": "08-22-2022",
     "dateAddedToLocation": "07-23-2022",
-    "photoURL": "https://api.iconify.design/noto:carrot.svg",
-    "uid": "b7jk3WcOXmbb7jJ15MO9SZMYH2E2",
-    "status": "open",
+    "description": "it's great!",
+    "foodItemFirebaseKey": "-NA70QMbYihqja4sw7Z8",
     "isPublic": true,
-    "location": "fridge" 
+    "location": "fridge",
+    "name": "carrot",
+    "photoURL": "https://api.iconify.design/noto:carrot.svg",
+    "status": "open",
+    "uid": "b7jk3WcOXmbb7jJ15MO9SZMYH2E2"
   },
   "-NA70ud3MdTDWvLKrD3p": {
-    "foodItemFirebaseKey": "-NA70ud3MdTDWvLKrD3p",
-    "name": "moon cake",
     "categoryFirebaseKey": "-NA75hOLzlEcGG-HYyBc",
     "dateAddedToDB": "08-23-2022",
     "dateAddedToLocation": "08-22-2022",
-    "photoURL": "https://api.iconify.design/noto:moon-cake.svg",
-    "uid": "b7jk3WcOXmbb7jJ15MO9SZMYH2E2",
-    "status": "open",
+    "description": "never tried one before, but had to get it",
+    "foodItemFirebaseKey": "-NA70ud3MdTDWvLKrD3p",
     "isPublic": true,
-    "location": "pantry" 
+    "location": "pantry",
+    "name": "moon cake",
+    "photoURL": "https://api.iconify.design/noto:moon-cake.svg",
+    "status": "open",
+    "uid": "b7jk3WcOXmbb7jJ15MO9SZMYH2E2"
   },
   "-NA71ZGrRMTHWqvwuPL2": {
-    "foodItemFirebaseKey": "-NA71ZGrRMTHWqvwuPL2",
-    "name": "garlic",
     "categoryFirebaseKey": "-NA79M2__luxL1yowUbV",
     "dateAddedToDB": "08-20-2022",
     "dateAddedToLocation": "08-18-2022",
-    "photoURL": "https://api.iconify.design/noto:garlic.svg",
-    "uid": "b7jk3WcOXmbb7jJ15MO9SZMYH2E2",
-    "status": "open",
+    "description": "bulb garlic; true pantry staple",
+    "foodItemFirebaseKey": "-NA71ZGrRMTHWqvwuPL2",
     "isPublic": true,
-    "location": "pantry" 
+    "location": "pantry",
+    "name": "garlic",
+    "photoURL": "https://api.iconify.design/noto:garlic.svg",
+    "status": "open",
+    "uid": "b7jk3WcOXmbb7jJ15MO9SZMYH2E2"
   },
   "-NA728tM5fraHvOv95rp": {
-    "foodItemFirebaseKey": "-NA728tM5fraHvOv95rp",
-    "name": "falafel",
     "categoryFirebaseKey": "-NA75yD_qEZno7BWMIyT",
     "dateAddedToDB": "08-21-2022",
     "dateAddedToLocation": "07-22-2022",
-    "photoURL": "https://api.iconify.design/noto:falafel.svg",
-    "uid": "b7jk3WcOXmbb7jJ15MO9SZMYH2E2",
-    "status": "open",
+    "description": "picked some up from TJ's",
+    "foodItemFirebaseKey": "-NA728tM5fraHvOv95rp",
     "isPublic": true,
-    "location": "freezer" 
+    "location": "freezer",
+    "name": "falafel",
+    "photoURL": "https://api.iconify.design/noto:falafel.svg",
+    "status": "open",
+    "uid": "b7jk3WcOXmbb7jJ15MO9SZMYH2E2"
   }
-
 }
