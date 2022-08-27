@@ -2,7 +2,7 @@
   "-NA6z3RNaSC6iCwm2K5D": {
     "categoryFirebaseKey": "-NA74blHij8rjdddv7C9",
     "dateAddedToDB": "08-22-2022",
-    "dateAddedToLocation": "08-22-2022",
+    "dateAddedToLocation": "2022-08-19",
     "description": "pretty, pretty good banana",
     "foodItemFirebaseKey": "-NA6z3RNaSC6iCwm2K5D",
     "isPublic": true,
@@ -15,12 +15,12 @@
   "-NA70QMbYihqja4sw7Z8": {
     "categoryFirebaseKey": "-NA758iTQWFV6YqkzBlD",
     "dateAddedToDB": "08-22-2022",
-    "dateAddedToLocation": "07-23-2022",
-    "description": "it's great!",
+    "dateAddedToLocation": "2022-08-20",
+    "description": "get that vitamin c",
     "foodItemFirebaseKey": "-NA70QMbYihqja4sw7Z8",
     "isPublic": true,
     "location": "fridge",
-    "name": "carrot",
+    "name": "organic carrots",
     "photoURL": "https://api.iconify.design/noto:carrot.svg",
     "status": "open",
     "uid": "b7jk3WcOXmbb7jJ15MO9SZMYH2E2"
@@ -28,7 +28,7 @@
   "-NA70ud3MdTDWvLKrD3p": {
     "categoryFirebaseKey": "-NA75hOLzlEcGG-HYyBc",
     "dateAddedToDB": "08-23-2022",
-    "dateAddedToLocation": "08-22-2022",
+    "dateAddedToLocation": "2022-08-22",
     "description": "never tried one before, but had to get it",
     "foodItemFirebaseKey": "-NA70ud3MdTDWvLKrD3p",
     "isPublic": true,
@@ -41,7 +41,7 @@
   "-NA71ZGrRMTHWqvwuPL2": {
     "categoryFirebaseKey": "-NA79M2__luxL1yowUbV",
     "dateAddedToDB": "08-20-2022",
-    "dateAddedToLocation": "08-18-2022",
+    "dateAddedToLocation": "2022-08-18",
     "description": "bulb garlic; true pantry staple",
     "foodItemFirebaseKey": "-NA71ZGrRMTHWqvwuPL2",
     "isPublic": true,
@@ -54,7 +54,7 @@
   "-NA728tM5fraHvOv95rp": {
     "categoryFirebaseKey": "-NA75yD_qEZno7BWMIyT",
     "dateAddedToDB": "08-21-2022",
-    "dateAddedToLocation": "07-22-2022",
+    "dateAddedToLocation": "2022-07-22",
     "description": "picked some up from TJ's",
     "foodItemFirebaseKey": "-NA728tM5fraHvOv95rp",
     "isPublic": true,
@@ -62,6 +62,18 @@
     "name": "falafel",
     "photoURL": "https://api.iconify.design/noto:falafel.svg",
     "status": "open",
+    "uid": "b7jk3WcOXmbb7jJ15MO9SZMYH2E2"
+  },
+  "-NAVNncsSoR5GOqzH60N": {
+    "categoryFirebaseKey": "-NA75yD_qEZno7BWMIyT",
+    "dateAddedToDB": "8/27/2022, 12:39:35 PM",
+    "dateAddedToLocation": "2022-08-13",
+    "description": "Took me a while to make but tastes great. Goes well with rice.",
+    "foodItemFirebaseKey": "-NAVNncsSoR5GOqzH60N",
+    "isPublic": true,
+    "location": "freezer",
+    "name": "Chicken Gumbo",
+    "photoURL": "https://www.wineandspiritsmagazine.com/wp-content/uploads/2021/06/2106-ftr-retailchall-gumbo-hdr.jpg",
     "uid": "b7jk3WcOXmbb7jJ15MO9SZMYH2E2"
   }
 }
