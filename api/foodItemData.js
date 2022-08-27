@@ -15,6 +15,12 @@ const getUserFoodItems = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getSingleFoodItem = (foodItemFirebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/food/${foodItemFirebaseKey}.json`)
+    .then((response) => resolve(response.data))
+    .catch(reject);
+});
+
 const createFoodItem = (foodObj) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/food.json`, foodObj)
     .then((response) => {
@@ -38,5 +44,5 @@ const deleteFoodItem = (foodItemFirebaseKey, uid) => new Promise((resolve, rejec
 });
 
 export {
-  getUserFoodItems, createFoodItem, updateFoodItem, deleteFoodItem,
+  getUserFoodItems, getSingleFoodItem, createFoodItem, updateFoodItem, deleteFoodItem,
 };

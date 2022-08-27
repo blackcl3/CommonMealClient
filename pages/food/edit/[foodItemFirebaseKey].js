@@ -1,11 +1,20 @@
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { getSingleFoodItem } from '../../../api/foodItemData';
 import FoodItemForm from '../../../components/forms/FoodItemForm';
 
 export default function EditFoodItemPage() {
+  const [editItem, setEditItem] = useState({});
+  const router = useRouter();
+  const { foodItemFirebaseKey } = router.query;
+
+  useEffect(() => {
+    getSingleFoodItem(foodItemFirebaseKey).then(setEditItem);
+  }, [foodItemFirebaseKey]);
+
   return (
     <div>
-      <h1>Edit Food Item Page</h1>
-      <FoodItemForm />
+      <FoodItemForm obj={editItem} />
     </div>
   );
 }

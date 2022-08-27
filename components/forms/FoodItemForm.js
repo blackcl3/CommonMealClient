@@ -47,7 +47,7 @@ function FoodItemForm({ obj }) {
     e.preventDefault();
     if (obj.foodItemFirebaseKey) {
       updateFoodItem(formInput)
-        .then(() => { router.push('/myFood'); });
+        .then(() => { router.push('/food/myFood'); });
     } else {
       const payload = { ...formInput, uid: user.uid, dateAddedToDB: date() };
       console.warn(payload);
@@ -62,7 +62,7 @@ function FoodItemForm({ obj }) {
       <FormGroup controlId="floatingSelect">
         <FloatingLabel label="Location">
           <Form.Select aria-label="Location Select" name="location" onChange={handleChange} required>
-            <option>Select a Location</option>
+            <option value={formInput.location || ''}>{ obj.foodItemFirebaseKey ? formInput.location : 'Select a Location'}</option>
             <option value="fridge">Fridge</option>
             <option value="freezer">Freezer</option>
             <option value="pantry">Pantry</option>
@@ -109,12 +109,12 @@ function FoodItemForm({ obj }) {
       </FormGroup>
       <FormGroup>
         <FloatingLabel label="Date You Got This Item">
-          <Form.Control type="date" name="dateAddedToLocation" onChange={handleChange} />
+          <Form.Control type="date" name="dateAddedToLocation" onChange={handleChange} value={formInput.dateAddedToLocation} />
         </FloatingLabel>
       </FormGroup>
       <FormGroup>
         <FloatingLabel label="Photo of Your Food">
-          <Form.Control type="text" name="photoURL" onChange={handleChange} />
+          <Form.Control type="text" name="photoURL" onChange={handleChange} value={formInput.photoURL} />
         </FloatingLabel>
       </FormGroup>
 

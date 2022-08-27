@@ -19,7 +19,7 @@ export default function MyFoodItemCard({ obj }) {
           <Button size="lg">
             <Recycle />
           </Button>
-          <Button variant="outline-primary" size="lg">
+          <Button variant="outline-primary" size="lg" href={`/food/edit/${obj.foodItemFirebaseKey}`} passHref>
             <PencilSquare />
           </Button>
           <Button variant="danger" size="lg">
@@ -40,5 +40,6 @@ MyFoodItemCard.propTypes = {
     isPublic: bool,
     dateAddedToDB: string,
     location: string,
+    foodItemFirebaseKey: string,
   }).isRequired,
 };
