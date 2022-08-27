@@ -1,19 +1,34 @@
-import React, { useState } from 'react';
-import { FloatingLabel, Form } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import {
+  Button, FloatingLabel, Form, FormGroup,
+} from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
+import { getFoodCategories } from '../../api/categoryData';
+import { createFoodItem, updateFoodItem } from '../../api/foodItemData';
+import { useAuth } from '../../utils/context/authContext';
 
 const initialState = {
   location: '',
   name: '',
-  category: '',
+  categoryFirebaseKey: '',
   photoURL: '',
   description: '',
+  dateAddedToLocation: '',
+  isPublic: '',
 };
 
 function FoodItemForm({ obj }) {
-  const [formInput, setFormInput] = useState({});
-  // eslint-disable-next-line no-unused-vars
-  const [categories, setFoodCategories] = useState();
+  const [formInput, setFormInput] = useState(initialState);
+  const [categories, setFoodCategories] = useState([]);
+  const { user } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    getFoodCategories().then(setFoodCategories);
+    if (obj.foodItemFirebaseKey) setFormInput(obj);
+  }, [obj]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormInput((prevState) => ({
@@ -22,34 +37,88 @@ function FoodItemForm({ obj }) {
     }));
   };
 
+  const date = () => {
+    const rawDate = new Date();
+    const dateString = rawDate.toLocaleString();
+    return dateString;
+  };
+
   const handleSubmit = (e) => {
-    console.warn('input entered', e);
+    e.preventDefault();
+    if (obj.foodItemFirebaseKey) {
+      updateFoodItem(formInput)
+        .then(() => { router.push('/myFood'); });
+    } else {
+      const payload = { ...formInput, uid: user.uid, dateAddedToDB: date() };
+      console.warn(payload);
+      createFoodItem(payload).then(() => {
+        router.push('/food/myFood');
+      });
+    }
   };
   return (
     <Form onSubmit={handleSubmit}>
-      <h2>{obj.foodItemFirebaseKey ? 'Edit' : 'Create New'} Food Item</h2>
-      <FloatingLabel controlId="floatingSelect" label="Location">
-        <Form.Select aria-label="Location Select" name="location" onChange={handleChange} required>
-          <option>Select a Location</option>
-          <option value="fridge">Fridge</option>
-          <option value="freezer">Freezer</option>
-          <option value="pantry">Pantry</option>
-        </Form.Select>
-      </FloatingLabel>
-      <Form.Group>
-        <Form.Label controlId="form.Input1" label="Food Item Name" className="mb-3">
-          Food Item Name
-        </Form.Label>
-        <Form.Control type="text" placeholder="Enter Name" name="name" value={formInput.name} onChange={handleChange} required />
-      </Form.Group>
-      <Form.Group>
-        <Form.Label controlId="floatingInput2" label="Food Item Description" className="mb-3">Food Item Description</Form.Label>
-        <Form.Control type="text" placeholder="Enter Description" name="description" value={formInput.description} onChange={handleChange} />
-      </Form.Group>
+      <h1>{obj.foodItemFirebaseKey ? 'Edit' : 'Create New'} Food Item</h1>
+      <FormGroup controlId="floatingSelect">
+        <FloatingLabel label="Location">
+          <Form.Select aria-label="Location Select" name="location" onChange={handleChange} required>
+            <option>Select a Location</option>
+            <option value="fridge">Fridge</option>
+            <option value="freezer">Freezer</option>
+            <option value="pantry">Pantry</option>
+          </Form.Select>
+        </FloatingLabel>
+      </FormGroup>
+      <FormGroup controlId="form.Input1">
+        <FloatingLabel label="Food Item Name" className="mb-3">
+          <Form.Control type="text" placeholder="Enter Name" name="name" value={formInput.name} onChange={handleChange} required />
+        </FloatingLabel>
+      </FormGroup>
+      <FormGroup>
+        <FloatingLabel controlId="floatingInput2" label="Food Item Description" className="mb-3">
+          <Form.Control type="text" placeholder="Enter Description" name="description" value={formInput.description} onChange={handleChange} />
+        </FloatingLabel>
+      </FormGroup>
+      <FormGroup controlId="floatingSelect">
+        <FloatingLabel label="category" required>
+          <Form.Select aria-label="category select" name="categoryFirebaseKey" onChange={handleChange}>
+            <option value="">Select a Category</option>
+            {categories?.map((category) => (
+              <option key={category.categoryFirebaseKey} value={category.categoryFirebaseKey} selected={obj.categoryFirebaseKey === category.categoryFirebaseKey}>
+                {category.name}
+              </option>
+            ))}
+          </Form.Select>
+        </FloatingLabel>
+      </FormGroup>
+      <FormGroup>
+        <Form.Check
+          className="text-black mb-3"
+          type="switch"
+          id="isPublic"
+          name="isPublic"
+          label="Make Food Item Public?"
+          checked={formInput.isPublic}
+          onChange={(e) => {
+            setFormInput((prevState) => ({
+              ...prevState,
+              isPublic: e.target.checked,
+            }));
+          }}
+        />
+      </FormGroup>
+      <FormGroup>
+        <FloatingLabel label="Date You Got This Item">
+          <Form.Control type="date" name="dateAddedToLocation" onChange={handleChange} />
+        </FloatingLabel>
+      </FormGroup>
+      <FormGroup>
+        <FloatingLabel label="Photo of Your Food">
+          <Form.Control type="text" name="photoURL" onChange={handleChange} />
+        </FloatingLabel>
+      </FormGroup>
 
-      <FloatingLabel>
-        <Form.Control type="text" placeholder="" />
-      </FloatingLabel>
+      <Button type="submit">{obj.foodItemFirebaseKey ? 'Update' : 'Add New'} Food Item</Button>
     </Form>
   );
 }
@@ -59,8 +128,10 @@ FoodItemForm.propTypes = {
     name: PropTypes.string,
     photoURL: PropTypes.string,
     foodItemFirebaseKey: PropTypes.string,
-    category: PropTypes.string,
+    categoryFirebaseKey: PropTypes.string,
     location: PropTypes.string,
+    dateAddedToLocation: PropTypes.string,
+    dateAddedToDB: PropTypes.string,
   }),
 };
 

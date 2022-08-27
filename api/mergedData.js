@@ -1,5 +1,5 @@
 import { getSingleFoodCategory } from './categoryData';
-import getUserFoodItems from './foodItemData';
+import { getUserFoodItems } from './foodItemData';
 
 const getFoodItemandCategories = (uid) => new Promise((resolve, reject) => {
   getUserFoodItems(uid)
