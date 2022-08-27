@@ -2,8 +2,14 @@ import PropTypes, { bool, string } from 'prop-types';
 import React from 'react';
 import { Recycle, PencilSquare, Trash3Fill } from 'react-bootstrap-icons';
 import { Button, Card } from 'react-bootstrap';
+import { deleteFoodItem } from '../api/foodItemData';
 
-export default function MyFoodItemCard({ obj }) {
+export default function MyFoodItemCard({ obj, onUpdate }) {
+  const deleteFoodItemCard = () => {
+    if (window.confirm(`Delete your ${obj.name}?`)) {
+      deleteFoodItem(obj.foodItemFirebaseKey).then(() => onUpdate());
+    }
+  };
   return (
     <Card className="food-card">
       <Card.Img variant="top" src={obj.photoURL} />
@@ -19,10 +25,10 @@ export default function MyFoodItemCard({ obj }) {
           <Button size="lg">
             <Recycle />
           </Button>
-          <Button variant="outline-primary" size="lg" href={`/food/edit/${obj.foodItemFirebaseKey}`} passHref>
+          <Button variant="outline-primary" size="lg" href={`/food/edit/${obj.foodItemFirebaseKey}`} passhref="true">
             <PencilSquare />
           </Button>
-          <Button variant="danger" size="lg">
+          <Button variant="danger" size="lg" onClick={deleteFoodItemCard}>
             <Trash3Fill />
           </Button>
         </div>
@@ -42,4 +48,5 @@ MyFoodItemCard.propTypes = {
     location: string,
     foodItemFirebaseKey: string,
   }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };

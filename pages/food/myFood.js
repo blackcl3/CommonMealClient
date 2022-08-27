@@ -15,7 +15,6 @@ export default function MyFoodPage() {
 
   useEffect(() => {
     getUserFoods();
-    console.warn(foodObject, 'inside useeffect');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -29,7 +28,7 @@ export default function MyFoodPage() {
         </div>
         <div className="food-card-container container">
           {foodObject?.map((foodItem) => (
-            <MyFoodItemCard key={foodItem.foodItemFirebaseKey} obj={foodItem} onChange={getFoodItemandCategories} />
+            <MyFoodItemCard key={foodItem.foodItemFirebaseKey} obj={foodItem} onChange={getFoodItemandCategories} onUpdate={getUserFoods} />
           ))}
         </div>
       </div>
