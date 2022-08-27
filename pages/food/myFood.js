@@ -23,7 +23,7 @@ export default function MyFoodPage() {
         <div className="my-food-page-title-div">
           <h1 className="my-food-page-title">{user.displayName}&apos;s Kitchen</h1>
         </div>
-        <div>
+        <div className="addFoodButtonDiv">
           <Button href="newFoodItem">Add New Food</Button>
         </div>
         <div className="food-card-container container">

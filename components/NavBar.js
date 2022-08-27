@@ -26,6 +26,21 @@ export default function NavBar() {
                 <a className="nav-link">Home</a>
               </Link>
             </li>
+            <li className="nav-item">
+              <Link passHref href="/food/myFood">
+                <a className="nav-link">My Kitchen Page</a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link passHref href="/food/publicItems">
+                <a className="nav-link">Public Item Page</a>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link passHref href="">
+                <a className="nav-link">My Profile Page</a>
+              </Link>
+            </li>
             <button type="button" className="btn btn-danger" onClick={signOut}>
               Sign Out
             </button>
