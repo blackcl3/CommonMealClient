@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import getFoodItemandCategories from '../../api/mergedData';
+import { getFoodItemandCategories } from '../../api/mergedData';
 import MyFoodItemCard from '../../components/MyFoodItemCard';
 import { useAuth } from '../../utils/context/authContext';
 

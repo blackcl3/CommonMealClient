@@ -4,9 +4,15 @@ import {
   Recycle, PencilSquare, Trash3Fill, Eye, EyeSlash,
 } from 'react-bootstrap-icons';
 import { Button, Card } from 'react-bootstrap';
-import { deleteFoodItem } from '../api/foodItemData';
+// eslint-disable-next-line no-unused-vars
+import { useRouter } from 'next/router';
+import { updateFoodItem, deleteFoodItem } from '../api/foodItemData';
+import { useAuth } from '../utils/context/authContext';
 
 export default function MyFoodItemCard({ obj, onUpdate }) {
+  const { user } = useAuth();
+  const router = useRouter();
+
   const deleteFoodItemCard = () => {
     if (window.confirm(`Delete your ${obj.name}?`)) {
       deleteFoodItem(obj.foodItemFirebaseKey).then(() => onUpdate());
@@ -15,7 +21,11 @@ export default function MyFoodItemCard({ obj, onUpdate }) {
 
   const giveAwayFoodItem = () => {
     if (window.confirm(`You sure you want to give away your ${obj.name}? Looks pretty good!`)) {
-      console.warn('Given away');
+      const updatedObj = obj;
+      updatedObj.status = 'available';
+      updateFoodItem(updatedObj, user.uid).then(() => {
+        router.push('/food/publicItems');
+      });
     }
   };
 
@@ -69,6 +79,7 @@ MyFoodItemCard.propTypes = {
     dateAddedToDB: string,
     location: string,
     foodItemFirebaseKey: string,
+    status: string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
