@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getPublicFoodItemAndCategories } from '../../api/mergedData';
-import PublicFoodItemCard from '../../components/PublicFoodItemCard';
+import { getPublicFoodItemAndCategories } from '../../../api/mergedData';
+import PublicFoodItemCard from '../../../components/PublicFoodItemCard';
 
 export default function PublicItems() {
   // eslint-disable-next-line no-unused-vars
