@@ -7,10 +7,20 @@ import { useAuth } from '../../utils/context/authContext';
 export default function MyFoodPage() {
   // eslint-disable-next-line no-unused-vars
   const [foodObject, setFoodObject] = useState();
+  const [filteredFood, setFilteredFood] = useState();
   const { user } = useAuth();
 
   const getUserFoods = () => {
-    getFoodItemandCategories(user.uid).then(setFoodObject);
+    getFoodItemandCategories(user.uid).then((response) => {
+      setFoodObject(response);
+      setFilteredFood(response);
+    });
+  };
+
+  const handleClick = (e) => {
+    const location = e.target.innerText;
+    filteredFood?.filter((foodObj) => foodObj.location === location);
+    setFoodObject(filteredFood);
   };
 
   useEffect(() => {
@@ -26,10 +36,17 @@ export default function MyFoodPage() {
         <div className="addFoodButtonDiv">
           <Button href="newFoodItem">Add New Food</Button>
         </div>
+        <div className="filter-button-div">
+          <Button onClick={handleClick}>freezer</Button>
+          <Button onClick={handleClick}>fridge</Button>
+          <Button onClick={handleClick}>pantry</Button>
+        </div>
         <div className="food-card-container container">
-          {foodObject?.filter((foodObj) => foodObj.status === 'open').map((foodItem) => (
-            <MyFoodItemCard key={foodItem.foodItemFirebaseKey} obj={foodItem} onChange={getFoodItemandCategories} onUpdate={getUserFoods} />
-          ))}
+          {foodObject
+            ?.filter((foodObj) => foodObj.status === 'open')
+            .map((foodItem) => (
+              <MyFoodItemCard key={foodItem.foodItemFirebaseKey} obj={foodItem} onChange={getFoodItemandCategories} onUpdate={getUserFoods} />
+            ))}
         </div>
       </div>
     </>
