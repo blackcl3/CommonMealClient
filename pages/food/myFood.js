@@ -23,6 +23,10 @@ export default function MyFoodPage() {
     setFilteredFood(newFilter);
   };
 
+  const resetPage = () => {
+    setFilteredFood(foodObject);
+  };
+
   useEffect(() => {
     getUserFoods();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,9 +41,18 @@ export default function MyFoodPage() {
           <Button href="newFoodItem">Add New Food</Button>
         </div>
         <div className="filter-button-div">
-          <Button onClick={handleClick}>freezer</Button>
-          <Button onClick={handleClick}>fridge</Button>
-          <Button onClick={handleClick}>pantry</Button>
+          <Button onClick={handleClick} className="food-filter-button">
+            freezer
+          </Button>
+          <Button onClick={handleClick} className="food-filter-button">
+            fridge
+          </Button>
+          <Button onClick={handleClick} className="food-filter-button">
+            pantry
+          </Button>
+          <Button onClick={resetPage} className="food-filter-button">
+            clear
+          </Button>
         </div>
         <div className="food-card-container container">
           {filteredFood
