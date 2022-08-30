@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import getFoodItemandCategories from '../../api/mergedData';
+import { getFoodItemandCategories } from '../../api/mergedData';
 import MyFoodItemCard from '../../components/MyFoodItemCard';
 import { useAuth } from '../../utils/context/authContext';
 
@@ -23,11 +23,11 @@ export default function MyFoodPage() {
         <div className="my-food-page-title-div">
           <h1 className="my-food-page-title">{user.displayName}&apos;s Kitchen</h1>
         </div>
-        <div>
+        <div className="addFoodButtonDiv">
           <Button href="newFoodItem">Add New Food</Button>
         </div>
         <div className="food-card-container container">
-          {foodObject?.map((foodItem) => (
+          {foodObject?.filter((foodObj) => foodObj.status === 'open').map((foodItem) => (
             <MyFoodItemCard key={foodItem.foodItemFirebaseKey} obj={foodItem} onChange={getFoodItemandCategories} onUpdate={getUserFoods} />
           ))}
         </div>

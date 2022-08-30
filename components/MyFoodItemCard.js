@@ -1,15 +1,34 @@
 import PropTypes, { bool, string } from 'prop-types';
 import React from 'react';
-import { Recycle, PencilSquare, Trash3Fill } from 'react-bootstrap-icons';
+import {
+  Recycle, PencilSquare, Trash3Fill, Eye, EyeSlash,
+} from 'react-bootstrap-icons';
 import { Button, Card } from 'react-bootstrap';
-import { deleteFoodItem } from '../api/foodItemData';
+// eslint-disable-next-line no-unused-vars
+import { useRouter } from 'next/router';
+import { updateFoodItem, deleteFoodItem } from '../api/foodItemData';
+import { useAuth } from '../utils/context/authContext';
 
 export default function MyFoodItemCard({ obj, onUpdate }) {
+  const { user } = useAuth();
+  const router = useRouter();
+
   const deleteFoodItemCard = () => {
     if (window.confirm(`Delete your ${obj.name}?`)) {
       deleteFoodItem(obj.foodItemFirebaseKey).then(() => onUpdate());
     }
   };
+
+  const giveAwayFoodItem = () => {
+    if (window.confirm(`You sure you want to give away your ${obj.name}? Looks pretty good!`)) {
+      const updatedObj = obj;
+      updatedObj.status = 'available';
+      updateFoodItem(updatedObj, user.uid).then(() => {
+        router.push('/food/publicItems');
+      });
+    }
+  };
+
   return (
     <Card className="food-card">
       <Card.Img variant="top" src={obj.photoURL} />
@@ -22,7 +41,7 @@ export default function MyFoodItemCard({ obj, onUpdate }) {
         <Card.Subtitle>added: {obj.dateAddedToDB}</Card.Subtitle>
         <Card.Text>description: &quot;{obj.description}&quot;</Card.Text>
         <div className="food-card-button-group">
-          <Button size="lg">
+          <Button size="lg" onClick={giveAwayFoodItem}>
             <Recycle />
           </Button>
           <Button variant="outline-primary" size="lg" href={`/food/edit/${obj.foodItemFirebaseKey}`} passhref="true">
@@ -31,6 +50,19 @@ export default function MyFoodItemCard({ obj, onUpdate }) {
           <Button variant="danger" size="lg" onClick={deleteFoodItemCard}>
             <Trash3Fill />
           </Button>
+        </div>
+        <div className="publicIcon">
+          {obj.isPublic ? (
+            <>
+              <Eye />
+              <span>This Item is Public</span>
+            </>
+          ) : (
+            <>
+              <EyeSlash />
+              <span>This Item is Private</span>
+            </>
+          )}
         </div>
       </Card.Body>
     </Card>
@@ -47,6 +79,7 @@ MyFoodItemCard.propTypes = {
     dateAddedToDB: string,
     location: string,
     foodItemFirebaseKey: string,
+    status: string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };

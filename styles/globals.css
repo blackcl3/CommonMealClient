@@ -31,6 +31,8 @@ body {
   color: #ddf4fa;
 }
 
+/* My Food Page */
+
 .my-food-page-title-div {
   margin: 100px 0;
 }
@@ -38,6 +40,12 @@ body {
 .my-food-page-title {
   text-align: center;
 }
+
+.addFoodButtonDiv {
+  text-align: center;
+}
+
+/* My Food Card */
 
 .food-card-container {
   display: flex;
@@ -57,4 +65,16 @@ body {
 .food-card-button-group{
   justify-content: center;
   text-align: center;
+}
+
+.publicIcon {
+  text-align: center;
+}
+
+.public-items-select-btn-div {
+  text-align: center;
+}
+
+.public-items-select-btn {
+  width: 100%;
 }
