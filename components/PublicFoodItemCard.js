@@ -22,10 +22,8 @@ export default function PublicFoodItemCard({ obj }) {
     }
   };
 
-  // to do: implement logic for checking if user.uid = card.uid
   // to do: call needs to get users by UID to reflect displayName; right now, it's just showing my display name
   // may need to add display name to food obj; otherwise I'll need a merge call for users/uids (may be implementing anyways)
-  // add card with another UID so I can test the logic
 
   return (
     <Card className="food-card">
