@@ -1,7 +1,7 @@
 import PropTypes, { bool, string } from 'prop-types';
 import React from 'react';
 import {
-  Recycle, PencilSquare, Trash3Fill, Eye, EyeSlash,
+  Recycle, PencilSquare, Trash3Fill,
 } from 'react-bootstrap-icons';
 import { Button, Card } from 'react-bootstrap';
 // eslint-disable-next-line no-unused-vars
@@ -24,7 +24,7 @@ export default function MyFoodItemCard({ obj, onUpdate }) {
       const updatedObj = obj;
       updatedObj.status = 'available';
       updateFoodItem(updatedObj, user.uid).then(() => {
-        router.push('/food/publicItems');
+        router.push('/food/public/publicItems');
       });
     }
   };
@@ -51,7 +51,7 @@ export default function MyFoodItemCard({ obj, onUpdate }) {
             <Trash3Fill />
           </Button>
         </div>
-        <div className="publicIcon">
+        {/* <div className="publicIcon">
           {obj.isPublic ? (
             <>
               <Eye />
@@ -63,7 +63,7 @@ export default function MyFoodItemCard({ obj, onUpdate }) {
               <span>This Item is Private</span>
             </>
           )}
-        </div>
+        </div> */}
       </Card.Body>
     </Card>
   );

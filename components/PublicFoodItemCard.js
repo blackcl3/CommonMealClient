@@ -9,6 +9,10 @@ export default function PublicFoodItemCard({ obj }) {
   const { user } = useAuth();
   const router = useRouter();
 
+  const handleClick = () => {
+    router.push(`/food/public/${obj.foodItemFirebaseKey}`);
+  };
+
   const switchCardOwner = () => {
     if (obj.uid === user.uid) {
       window.confirm('You already gave this away!');
@@ -27,7 +31,7 @@ export default function PublicFoodItemCard({ obj }) {
 
   return (
     <Card className="food-card">
-      <Card.Img variant="top" src={obj.photoURL} />
+      <Card.Img variant="top" src={obj.photoURL} onClick={handleClick} />
       <Card.Body className="food-card-body">
         <div className="food-card-title-div">
           <h2>{obj.name}</h2>
@@ -35,7 +39,7 @@ export default function PublicFoodItemCard({ obj }) {
         <Card.Subtitle>category: {obj.categoryName}</Card.Subtitle>
         <Card.Subtitle>location: {obj.location}</Card.Subtitle>
         <Card.Subtitle>added: {obj.dateAddedToDB}</Card.Subtitle>
-        <Card.Subtitle>donated by: TO DO</Card.Subtitle>
+        {/* <Card.Subtitle>donated by: TO DO</Card.Subtitle> */}
         <Card.Text>description: &quot;{obj.description}&quot;</Card.Text>
         <div className="public-items-select-btn-div">
           <Button variant="success" className="public-items-select-btn" onClick={switchCardOwner}>

@@ -32,7 +32,7 @@ export default function NavBar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link passHref href="/food/publicItems">
+              <Link passHref href="/food/public/publicItems">
                 <a className="nav-link">Public Item Page</a>
               </Link>
             </li>
