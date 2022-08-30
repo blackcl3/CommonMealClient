@@ -72,7 +72,7 @@ function FoodItemForm({ obj }) {
       </FormGroup>
       <FormGroup controlId="form.Input1">
         <FloatingLabel label="Food Item Name" className="mb-3">
-          <Form.Control type="text" placeholder="Enter Name" name="name" value={formInput.name} onChange={handleChange} required />
+          <Form.Control type="text" placeholder="Enter Name" name="name" value={formInput.name.toLocaleLowerCase()} onChange={handleChange} required />
         </FloatingLabel>
       </FormGroup>
       <FormGroup>

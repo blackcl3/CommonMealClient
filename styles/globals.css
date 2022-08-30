@@ -70,3 +70,11 @@ body {
 .publicIcon {
   text-align: center;
 }
+
+.public-items-select-btn-div {
+  text-align: center;
+}
+
+.public-items-select-btn {
+  width: 100%;
+}

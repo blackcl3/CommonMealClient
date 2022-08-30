@@ -27,7 +27,7 @@ export default function MyFoodPage() {
           <Button href="newFoodItem">Add New Food</Button>
         </div>
         <div className="food-card-container container">
-          {foodObject?.map((foodItem) => (
+          {foodObject?.filter((foodObj) => foodObj.status === 'open').map((foodItem) => (
             <MyFoodItemCard key={foodItem.foodItemFirebaseKey} obj={foodItem} onChange={getFoodItemandCategories} onUpdate={getUserFoods} />
           ))}
         </div>
