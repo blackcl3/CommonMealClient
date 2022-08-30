@@ -45,6 +45,18 @@ body {
   text-align: center;
 }
 
+.filter-button-div {
+  text-align: center;
+  margin: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.food-filter-button {
+  margin: 10px;
+  width: 25%;
+}
+
 /* My Food Card */
 
 .food-card-container {

@@ -6,11 +6,25 @@ import { useAuth } from '../../utils/context/authContext';
 
 export default function MyFoodPage() {
   // eslint-disable-next-line no-unused-vars
-  const [foodObject, setFoodObject] = useState();
+  const [foodObject, setFoodObject] = useState([]);
+  const [filteredFood, setFilteredFood] = useState([]);
   const { user } = useAuth();
 
   const getUserFoods = () => {
-    getFoodItemandCategories(user.uid).then(setFoodObject);
+    getFoodItemandCategories(user.uid).then((response) => {
+      setFoodObject(response);
+      setFilteredFood(response);
+    });
+  };
+
+  const handleClick = (e) => {
+    const location = e.target.innerText;
+    const newFilter = foodObject.filter((foodObj) => foodObj.location === location);
+    setFilteredFood(newFilter);
+  };
+
+  const resetPage = () => {
+    setFilteredFood(foodObject);
   };
 
   useEffect(() => {
@@ -26,10 +40,26 @@ export default function MyFoodPage() {
         <div className="addFoodButtonDiv">
           <Button href="newFoodItem">Add New Food</Button>
         </div>
+        <div className="filter-button-div">
+          <Button onClick={handleClick} className="food-filter-button">
+            freezer
+          </Button>
+          <Button onClick={handleClick} className="food-filter-button">
+            fridge
+          </Button>
+          <Button onClick={handleClick} className="food-filter-button">
+            pantry
+          </Button>
+          <Button onClick={resetPage} className="food-filter-button">
+            clear
+          </Button>
+        </div>
         <div className="food-card-container container">
-          {foodObject?.filter((foodObj) => foodObj.status === 'open').map((foodItem) => (
-            <MyFoodItemCard key={foodItem.foodItemFirebaseKey} obj={foodItem} onChange={getFoodItemandCategories} onUpdate={getUserFoods} />
-          ))}
+          {filteredFood
+            ?.filter((foodObj) => foodObj.status === 'open')
+            .map((foodItem) => (
+              <MyFoodItemCard key={foodItem.foodItemFirebaseKey} obj={foodItem} onChange={getFoodItemandCategories} onUpdate={getUserFoods} />
+            ))}
         </div>
       </div>
     </>
