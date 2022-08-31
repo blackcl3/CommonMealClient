@@ -14,6 +14,18 @@ const getSingleUserProfile = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getSingleUserObj = (profileFirebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/profile/${profileFirebaseKey}.json`)
+    .then((response) => {
+      if (response) {
+        resolve((response.data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+
 const createUserProfile = (profileObj) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/profile.json`, profileObj)
     .then((response) => {
@@ -24,4 +36,4 @@ const createUserProfile = (profileObj) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export { getSingleUserProfile, createUserProfile };
+export { getSingleUserProfile, getSingleUserObj, createUserProfile };
