@@ -37,7 +37,7 @@ export default function NavBar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link passHref href="">
+              <Link passHref href="/profile/myProfile">
                 <a className="nav-link">My Profile Page</a>
               </Link>
             </li>

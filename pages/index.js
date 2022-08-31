@@ -1,18 +1,37 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { getSingleUserProfile } from '../api/profileData';
 import { getRecipebyID, getRecipeByIngredient } from '../api/spoonacularData';
 import { useAuth } from '../utils/context/authContext';
 
 function Home() {
   const { user } = useAuth();
-  console.warn(user);
+  const [userProfile, setUserProfile] = useState({});
   // eslint-disable-next-line no-unused-vars
   const spoonAPICalls = () => {
     getRecipeByIngredient().then(getRecipebyID());
   };
+
+  const getUserProfile = () => {
+    getSingleUserProfile(user.uid).then(setUserProfile);
+  };
+
   useEffect(() => {
     // spoonAPICalls();
+    getUserProfile();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (Object.keys(userProfile).length === 0) {
+    return (
+      <div className="container">
+        <h2>You Need to Create a User Profile</h2>
+        <Button className="btn btn-primary btn-lg copy-btn" type="button" href="profile/createProfile">
+          Get Started
+        </Button>
+      </div>
+    );
+  }
   return (
     <div className="container">
       <div
