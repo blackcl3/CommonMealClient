@@ -4,7 +4,7 @@ import {
   FloatingLabel, Form, FormGroup, Button,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { createUserProfile, getSingleUserProfile } from '../../api/profileData';
+import { createUserProfile, updateProfile } from '../../api/profileData';
 import { useAuth } from '../../utils/context/authContext';
 
 const initialState = {
@@ -12,7 +12,7 @@ const initialState = {
   photoURL: '',
   address: '',
   neighborhoodID: '',
-  zip: 0,
+  zip: '',
   name: '',
 };
 
@@ -22,7 +22,6 @@ function UserProfileForm({ obj }) {
   const router = useRouter();
 
   useEffect(() => {
-    getSingleUserProfile(user.uid).then(setFormInput);
     if (obj.profileFirebaseKey) setFormInput(obj);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [obj]);
@@ -38,8 +37,8 @@ function UserProfileForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.profileFirebaseKey) {
-      // updateProfile(formInput)
-      //   .then(() => { router.push('/profile/myProfile'); });
+      updateProfile(formInput)
+        .then(() => { router.push('/profile/myProfile'); });
     } else {
       const payload = {
         ...formInput, uid: user.uid, isPublic: true,
@@ -84,7 +83,7 @@ UserProfileForm.propTypes = {
     photoURL: PropTypes.string,
     profileFirebaseKey: PropTypes.string,
     address: PropTypes.string,
-    zip: PropTypes.number,
+    zip: PropTypes.string,
     neighborhoodID: PropTypes.string,
     isPublic: PropTypes.bool,
   }),

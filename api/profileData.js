@@ -36,4 +36,12 @@ const createUserProfile = (profileObj) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export { getSingleUserProfile, getSingleUserObj, createUserProfile };
+const updateProfile = (profileObj, uid) => new Promise((resolve, reject) => {
+  axios.patch(`${dbUrl}/profile/${profileObj.profileFirebaseKey}.json`, profileObj)
+    .then(() => getSingleUserObj(uid).then(resolve))
+    .catch(reject);
+});
+
+export {
+  getSingleUserProfile, getSingleUserObj, createUserProfile, updateProfile,
+};
