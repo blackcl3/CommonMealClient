@@ -38,7 +38,7 @@ function UserProfileForm({ obj }) {
     e.preventDefault();
     if (obj.profileFirebaseKey) {
       updateProfile(formInput)
-        .then(() => { router.push('/profile/myProfile'); });
+        .then(() => { router.push('/food/myFood'); });
     } else {
       const payload = {
         ...formInput, uid: user.uid, isPublic: true,
