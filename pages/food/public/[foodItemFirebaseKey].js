@@ -5,25 +5,25 @@ import { getSingleFoodItem } from '../../../api/foodItemData';
 import CommentCard from '../../../components/commentCard';
 import CommentForm from '../../../components/forms/CommentForm';
 import PublicFoodItemCard from '../../../components/PublicFoodItemCard';
-import { useAuth } from '../../../utils/context/authContext';
 
 export default function IndividualFoodItemPage() {
   const [foodItemDetails, setFoodItemDetails] = useState({});
   const [comments, setComments] = useState([]);
-  // eslint-disable-next-line no-unused-vars
-  const { user } = useAuth();
+  const [commentToUpdate, setCommentUpdate] = useState({});
   const router = useRouter();
   const { foodItemFirebaseKey } = router.query;
 
   function getFoodItemDetails() {
     getSingleFoodItem(foodItemFirebaseKey).then(setFoodItemDetails).then(() => getPublicFoodComments(foodItemFirebaseKey).then(setComments));
   }
-
   useEffect(() => {
+    const abortController = new AbortController();
     getFoodItemDetails();
-    console.warn(comments);
+    return (() => {
+      abortController.abort();
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [comments]);
 
   return (
     <>
@@ -32,9 +32,9 @@ export default function IndividualFoodItemPage() {
       <div>
         <h3>Section for Comments</h3>
         {comments?.map((comment) => (
-          <CommentCard obj={comment} />
+          <CommentCard obj={comment} key={comment.commentFirebaseKey} setCommentUpdate={setCommentUpdate} />
         ))}
-        <CommentForm foodItemFirebaseKey={foodItemFirebaseKey} />
+        <CommentForm foodItemFirebaseKey={foodItemFirebaseKey} obj={commentToUpdate} />
       </div>
     </>
   );

@@ -9,10 +9,10 @@ export default function NavBar() {
     <nav className="navbar navbar-expand-md navbar-dark bg-dark">
       <div className="container-fluid">
         <Link passHref href="/">
-          <a className="navbar-brand" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01">
+          <span className="navbar-brand" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01">
             CommonMeal
             <img src="https://api.iconify.design/noto:pot-of-food.svg" alt="commonmeal logo" />
-          </a>
+          </span>
         </Link>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,22 +23,22 @@ export default function NavBar() {
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
               <Link passHref href="/">
-                <a className="nav-link">Home</a>
+                <span className="nav-link">Home</span>
               </Link>
             </li>
             <li className="nav-item">
               <Link passHref href="/food/myFood">
-                <a className="nav-link">My Kitchen Page</a>
+                <span className="nav-link">My Kitchen Page</span>
               </Link>
             </li>
             <li className="nav-item">
               <Link passHref href="/food/public/publicItems">
-                <a className="nav-link">Public Item Page</a>
+                <span className="nav-link">Public Item Page</span>
               </Link>
             </li>
             <li className="nav-item">
               <Link passHref href="/profile/myProfile">
-                <a className="nav-link">My Profile Page</a>
+                <span className="nav-link">My Profile Page</span>
               </Link>
             </li>
             <button type="button" className="btn btn-danger" onClick={signOut}>
