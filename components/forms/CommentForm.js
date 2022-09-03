@@ -5,22 +5,26 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useAuth } from '../../utils/context/authContext';
-import { createPublicFoodComment } from '../../api/commentData';
+import { createPublicFoodComment, updateComment } from '../../api/commentData';
 
 const initialState = {
   commentText: '',
-  commentAuthor: '',
+  displayName: '',
   commentFirebaseKey: '',
 };
 
 export default function CommentForm({ obj, foodItemFirebaseKey }) {
   const [formInput, setFormInput] = useState(initialState);
+  const [comment, setCommentObj] = useState({});
   const { user } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (obj.commentFirebaseKey) setFormInput(obj);
-  }, [obj]);
+    if (obj.commentFirebaseKey) {
+      setFormInput(obj);
+      setCommentObj(obj);
+    }
+  }, [user, obj]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,8 +37,12 @@ export default function CommentForm({ obj, foodItemFirebaseKey }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.commentFirebaseKey) {
-      // updateComment(formInput)
-      //   .then(() => { router.push(`/food/public/${foodItemFirebaseKey}`); });
+      updateComment(formInput)
+        .then(() => {
+          setFormInput(initialState);
+          setCommentObj({});
+          router.push(`/food/public/${foodItemFirebaseKey}`);
+        });
     } else {
       const payload = {
         ...formInput, uid: user.uid, foodItemFirebaseKey, displayName: user.displayName,
@@ -42,10 +50,10 @@ export default function CommentForm({ obj, foodItemFirebaseKey }) {
       createPublicFoodComment(payload).then(() => {
         router.push(`/food/public/${foodItemFirebaseKey}`);
       });
+      setFormInput(initialState);
     }
   };
 
-  console.warn(user, router);
   return (
     <Form onSubmit={handleSubmit}>
       <h1>Comment Form</h1>
@@ -54,8 +62,8 @@ export default function CommentForm({ obj, foodItemFirebaseKey }) {
           <Form.Control type="text" placeholder="Enter A Comment" value={formInput.commentText} name="commentText" onChange={handleChange} required />
         </FloatingLabel>
       </FormGroup>
-      <h2>{ obj.commentAuthor }</h2>
-      <Button type="submit">Add Your Comment</Button>
+      <h2>{ user.displayName }</h2>
+      <Button type="submit">{comment.commentFirebaseKey ? 'Edit' : 'Add'} Your Comment</Button>
     </Form>
   );
 }
@@ -63,7 +71,7 @@ export default function CommentForm({ obj, foodItemFirebaseKey }) {
 CommentForm.propTypes = {
   obj: PropTypes.shape({
     commentText: PropTypes.string,
-    commentAuthor: PropTypes.string,
+    displayName: PropTypes.string,
     commentFirebaseKey: PropTypes.string,
   }),
   foodItemFirebaseKey: PropTypes.string.isRequired,
