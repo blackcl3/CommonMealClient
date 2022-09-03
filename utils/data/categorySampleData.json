@@ -1,26 +1,26 @@
 {
   "-NA74blHij8rjdddv7C9": {
-    "name": "fruit", 
-    "categoryFirebaseKey": "-NA74blHij8rjdddv7C9"
+    "categoryFirebaseKey": "-NA74blHij8rjdddv7C9",
+    "name": "fruit"
   },
   "-NA758iTQWFV6YqkzBlD": {
-    "name": "vegetable", 
-    "categoryFirebaseKey": "-NA758iTQWFV6YqkzBlD"
+    "categoryFirebaseKey": "-NA758iTQWFV6YqkzBlD",
+    "name": "vegetable"
   },
   "-NA75UOknXNX4rDoSC2K": {
-    "name": "non-perishable", 
-    "categoryFirebaseKey": "-NA75UOknXNX4rDoSC2K"
-  }, 
+    "categoryFirebaseKey": "-NA75UOknXNX4rDoSC2K",
+    "name": "non-perishable"
+  },
   "-NA75hOLzlEcGG-HYyBc": {
-    "name": "takeout/leftovers", 
-    "categoryFirebaseKey": "-NA75hOLzlEcGG-HYyBc"
+    "categoryFirebaseKey": "-NA75hOLzlEcGG-HYyBc",
+    "name": "takeout/leftovers"
   },
   "-NA75yD_qEZno7BWMIyT": {
-    "name": "whole meal", 
-    "categoryFirebaseKey": "-NA75yD_qEZno7BWMIyT"
-  }, 
+    "categoryFirebaseKey": "-NA75yD_qEZno7BWMIyT",
+    "name": "whole meal"
+  },
   "-NA79M2__luxL1yowUbV": {
-    "name": "other",
-    "categoryFirebaseKey": "-NA79M2__luxL1yowUbV"
+    "categoryFirebaseKey": "-NA79M2__luxL1yowUbV",
+    "name": "other"
   }
 }

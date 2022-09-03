@@ -18,6 +18,7 @@ function Home() {
 
   useEffect(() => {
     // spoonAPICalls();
+    document.title = 'CommonMeal';
     getUserProfile();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
