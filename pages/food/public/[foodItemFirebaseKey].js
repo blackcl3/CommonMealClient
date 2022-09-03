@@ -17,7 +17,11 @@ export default function IndividualFoodItemPage() {
     getSingleFoodItem(foodItemFirebaseKey).then(setFoodItemDetails).then(() => getPublicFoodComments(foodItemFirebaseKey).then(setComments));
   }
   useEffect(() => {
+    const abortController = new AbortController();
     getFoodItemDetails();
+    return (() => {
+      abortController.abort();
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [comments]);
 
