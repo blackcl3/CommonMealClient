@@ -4,8 +4,8 @@ import PropTypes, { string } from 'prop-types';
 
 export default function MyProfileCard({ obj }) {
   return (
-    <Card>
-      <Card.Img variant="top" src={obj.photoURL} />
+    <Card className="myProfileCard">
+      <Card.Img variant="top" src={obj.photoURL} className="myProfileImage" />
       <Card.Body>
         <Card.Title>Name: {obj.name} </Card.Title>
         <Card.Text>Address: {obj.address}</Card.Text>

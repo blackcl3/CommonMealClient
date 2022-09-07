@@ -64,7 +64,7 @@ body {
 
 .my-food-page-title {
   text-align: center;
-  color: #f8f8f8;
+  color: #363636;
 }
 
 .addFoodButtonDiv {
@@ -118,6 +118,14 @@ body {
   padding: 10px 0;
 }
 
+.recycleBtn {
+  margin-right: 20px;
+}
+
+.deleteBtn {
+  margin-left: 20px;
+}
+
 .publicIcon {
   text-align: center;
 }
@@ -128,4 +136,23 @@ body {
 
 .public-items-select-btn {
   width: 100%;
+}
+
+.publicFoodItemTitle {
+  text-align: left;
+  margin: 50px 0;
+  font-weight: 700;
+}
+
+.publicItemsDiv {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+/* Profile */
+
+.myProfileImage {
+  max-height: 600px;
 }
