@@ -17,9 +17,12 @@ const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) 
     return (
       <>
         <NavBar /> {/* NavBar only visible if user is logged in and is in every view */}
-        <div className="container">
+        <div className="container background-image">
           <Component {...pageProps} />
         </div>
+        <footer>
+          <a href="https://www.freepik.com/free-photo/food-delivery-new-normal-lifestyle-concept_17602112.htm#page=6&query=food%20waste&position=42&from_view=search#position=42&page=6&query=food%20waste">Image by rawpixel.com on Freepik</a>
+        </footer>
       </>
     );
   }

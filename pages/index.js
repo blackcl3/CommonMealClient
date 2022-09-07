@@ -25,34 +25,31 @@ function Home() {
 
   if (Object.keys(userProfile).length === 0) {
     return (
-      <div className="container">
+      <>
         <h2>You Need to Create a User Profile</h2>
         <Button className="btn btn-primary btn-lg copy-btn" type="button" href="profile/createProfile">
           Get Started
         </Button>
-      </div>
+      </>
     );
   }
   return (
-    <div className="container">
-      <div
-        className="text-center d-flex flex-column justify-content-center align-content-center"
-        style={{
-          padding: '100px',
-          maxWidth: '400px',
-          margin: '0 auto',
-        }}
-      >
-        <h1 className="landingPageh1">Don&apos;t</h1>
-        <h1 className="landingPageh1">Waste</h1>
-        <h1 className="landingPageh1">Your</h1>
-        <h1 className="landingPageh1">(Kitchen)</h1>
-        <h1 className="landingPageh1">Waste</h1>
-        <Button className="btn btn-primary btn-lg copy-btn" type="button" href="food/myFood">
-          Get Started
-        </Button>
+    <>
+      <div className="container">
+        <div className="landingPageDiv">
+          <h1 className="landingPageh1">Don&apos;t</h1>
+          <h1 className="landingPageh1">Waste</h1>
+          <h1 className="landingPageh1">Your</h1>
+          <h1 className="landingPageh1">(Kitchen)</h1>
+          <h1 className="landingPageh1">Waste</h1>
+        </div>
+        <div className="landingPageBtnDiv">
+          <Button className="btn btn-primary btn-lg copy-btn landingPageBtn" type="button" href="food/myFood">
+            Get Started
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

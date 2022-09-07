@@ -39,7 +39,7 @@ export default function MyFoodItemCard({ obj, onUpdate }) {
         <Card.Subtitle>category: {obj.categoryName}</Card.Subtitle>
         <Card.Subtitle>location: {obj.location}</Card.Subtitle>
         <Card.Subtitle>added: {obj.dateAddedToDB}</Card.Subtitle>
-        <Card.Text>description: &quot;{obj.description}&quot;</Card.Text>
+        <Card.Text className="food-card-description">description: &quot;{obj.description}&quot;</Card.Text>
         <div className="food-card-button-group">
           <Button size="lg" onClick={giveAwayFoodItem}>
             <Recycle />
