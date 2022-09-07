@@ -8,6 +8,13 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
+.background-image {
+  background-image: url('../public/images/wepik-photo-mode-202286-21024.jpeg');
+  height: 800px;
+  background-size: cover;
+  background-repeat: repeat-x;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -18,31 +25,58 @@ a {
 }
 
 body {
-  background-color: #ddf4fa;
+  background-color: #c4e0de;
+}
+
+/* navbar */
+.navbar-brand {
+  color: #f8f8f8;
+}
+
+/* landing page */
+
+.landingPageDiv {
+  text-align: left;
+  margin: 0 auto;
+  padding: 100px 0;
+  max-width: 400px;
 }
 
 .landingPageh1 {
   text-transform: uppercase;
   font-style: italic;
   font-weight: 700;
+  font-size: 3rem;
+  color: #363636;
 }
 
-.navbar-brand {
-  color: #ddf4fa;
+.landingPageBtnDiv {
+  text-align: center;
+  justify-content: center;
+  margin: 20px;
 }
 
 /* My Food Page */
 
 .my-food-page-title-div {
-  margin: 100px 0;
+  margin: 50px 0;
 }
 
 .my-food-page-title {
   text-align: center;
+  color: #363636;
 }
 
 .addFoodButtonDiv {
   text-align: center;
+  margin: 30px 0;
+}
+
+.food-category-dropdown {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 75%;
+  display: block;
 }
 
 .filter-button-div {
@@ -77,6 +111,19 @@ body {
 .food-card-button-group{
   justify-content: center;
   text-align: center;
+  padding: 0 10px;
+}
+
+.food-card-description {
+  padding: 10px 0;
+}
+
+.recycleBtn {
+  margin-right: 20px;
+}
+
+.deleteBtn {
+  margin-left: 20px;
 }
 
 .publicIcon {
@@ -89,4 +136,23 @@ body {
 
 .public-items-select-btn {
   width: 100%;
+}
+
+.publicFoodItemTitle {
+  text-align: left;
+  margin: 50px 0;
+  font-weight: 700;
+}
+
+.publicItemsDiv {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+/* Profile */
+
+.myProfileImage {
+  max-height: 600px;
 }

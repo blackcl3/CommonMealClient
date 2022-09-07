@@ -39,15 +39,15 @@ export default function MyFoodItemCard({ obj, onUpdate }) {
         <Card.Subtitle>category: {obj.categoryName}</Card.Subtitle>
         <Card.Subtitle>location: {obj.location}</Card.Subtitle>
         <Card.Subtitle>added: {obj.dateAddedToDB}</Card.Subtitle>
-        <Card.Text>description: &quot;{obj.description}&quot;</Card.Text>
+        <Card.Text className="food-card-description">description: &quot;{obj.description}&quot;</Card.Text>
         <div className="food-card-button-group">
-          <Button size="lg" onClick={giveAwayFoodItem}>
+          <Button size="lg" onClick={giveAwayFoodItem} className="recycleBtn">
             <Recycle />
           </Button>
-          <Button variant="outline-primary" size="lg" href={`/food/edit/${obj.foodItemFirebaseKey}`} passhref="true">
+          <Button variant="outline-primary" size="lg" href={`/food/edit/${obj.foodItemFirebaseKey}`} passhref="true" className="editBtn">
             <PencilSquare />
           </Button>
-          <Button variant="danger" size="lg" onClick={deleteFoodItemCard}>
+          <Button variant="danger" size="lg" onClick={deleteFoodItemCard} className="deleteBtn">
             <Trash3Fill />
           </Button>
         </div>
