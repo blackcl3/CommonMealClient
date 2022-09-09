@@ -106,6 +106,7 @@ function FoodItemForm({ obj }) {
               isPublic: e.target.checked,
             }));
           }}
+          required
         />
       </FormGroup>
       <FormGroup>
