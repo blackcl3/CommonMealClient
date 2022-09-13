@@ -13,6 +13,9 @@ body {
   height: 800px;
   background-size: cover;
   background-repeat: repeat-x;
+  position: absolute;
+  width: 100%;
+  margin-left: 0;
 }
 
 a {
