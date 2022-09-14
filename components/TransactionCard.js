@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import PropTypes, { instanceOf, string } from 'prop-types';
+import Emoji from './Emoji';
 
 export default function TransactionCard({ obj }) {
   // function getCategoryEmoji() {
@@ -17,7 +18,7 @@ export default function TransactionCard({ obj }) {
       </div>
       <div>
         <Card.Body>
-          {obj.fromUser[0].name} gifted {obj.categoryName} to {obj.toUser[0].name}
+          {obj.fromUser[0].name} gifted <Emoji obj={obj} /> to {obj.toUser[0].name}
         </Card.Body>
       </div>
     </Card>
