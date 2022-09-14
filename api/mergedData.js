@@ -1,6 +1,6 @@
 import { getSingleFoodCategory } from './categoryData';
 import { getPublicFoodItems, getUserFoodItems } from './foodItemData';
-import { getSingleUserProfile } from './profileData';
+import { getUserProfiles } from './profileData';
 import { getTransactions } from './transactionData';
 
 const getFoodItemandCategories = (uid) => new Promise((resolve, reject) => {
@@ -25,18 +25,15 @@ const getPublicFoodItemAndCategories = (uid) => new Promise((resolve, reject) =>
 });
 
 const getTransactionsAndDisplayNames = () => new Promise((resolve, reject) => {
-  getTransactions()
-    .then((transactionArr) => {
-      // const getFromUserProfiles = getSingleUserProfile(transObj.fromUid));
-      // const getToUserProfiles = transactionArr.map((transObj) => getSingleUserProfile(transObj.toUid));
-      // Promise.all(getFromUserProfiles, getToUserProfiles).then((fromProfileObj, toProfileObj) => (transactionArr.map((transObj) => ({ ...transObj, fromProfileObj, toProfileObj }))))
-      //   .then(resolve);
-      // eslint-disable-next-line array-callback-return
-      Promise.all(transactionArr.map((transObj) => {
-        // eslint-disable-next-line no-undef, no-unused-expressions
-        [getSingleUserProfile(transObj.fromUid), getSingleUserProfile(transobj.toUid)];
-      }));
-    })
+  Promise.all([getTransactions(), getUserProfiles()]).then(([transactions, profiles]) => {
+    const allTransactionInfoArr = transactions.map((transaction) => {
+      const fromUserProfile = profiles.filter((profile) => profile.uid === transaction.fromUid);
+      const toUserProfile = profiles.filter((profile) => profile.uid === transaction.toUid);
+
+      return ({ ...transaction, fromUser: fromUserProfile, toUser: toUserProfile });
+    });
+    resolve(allTransactionInfoArr);
+  })
     .catch(reject);
 });
 

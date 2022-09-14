@@ -3,6 +3,18 @@ import { clientCredentials } from '../utils/client';
 
 const dbUrl = clientCredentials.databaseURL;
 
+const getUserProfiles = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/profile.json`)
+    .then((response) => {
+      if (response) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+
 const getSingleUserProfile = (uid) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/profile.json?orderBy="uid"&equalTo="${uid}"`).then((response) => {
     if (response) {
@@ -43,5 +55,5 @@ const updateProfile = (profileObj, uid) => new Promise((resolve, reject) => {
 });
 
 export {
-  getSingleUserProfile, getSingleUserObj, createUserProfile, updateProfile,
+  getUserProfiles, getSingleUserProfile, getSingleUserObj, createUserProfile, updateProfile,
 };

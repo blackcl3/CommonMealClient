@@ -39,13 +39,13 @@ export default function NavBar() {
                 </Link>
               </Nav.Link>
               <Nav.Link eventKey="4" className="nav-item">
-                <Link passHref href="/profile/myProfile">
-                  <span className="nav-link">My Profile Page</span>
+                <Link passHref href="/transactions">
+                  <span className="nav-link">Transactions Page</span>
                 </Link>
               </Nav.Link>
               <Nav.Link eventKey="4" className="nav-item">
-                <Link passHref href="/transactions">
-                  <span className="nav-link">Transactions Page</span>
+                <Link passHref href="/profile/myProfile">
+                  <span className="nav-link">My Profile Page</span>
                 </Link>
               </Nav.Link>
               <button type="button" className="btn btn-danger" onClick={signOut}>

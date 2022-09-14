@@ -1,13 +1,25 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import PropTypes, { string } from 'prop-types';
+import PropTypes, { instanceOf, string } from 'prop-types';
 
 export default function TransactionCard({ obj }) {
+  // function getCategoryEmoji() {
+  //   if (obj.categoryName === 'other') {
+  //     return String.fromCodePoint('U+1F372');
+  //   }
+  //   return String.fromCodePoint('U+1F963');
+  // }
+
   return (
-    <Card>
-      <Card.Title>Category: {obj.categoryName}</Card.Title>
-      <Card.Body>Recipient: {obj.toUid}</Card.Body>
-      <Card.Body>Gave: {obj.fromUid}</Card.Body>
+    <Card className="transaction-card">
+      <div>
+        <Card.Img src={obj.fromUser[0].photoURL} className="transaction-card-photo" />
+      </div>
+      <div>
+        <Card.Body>
+          {obj.fromUser[0].name} gifted {obj.categoryName} to {obj.toUser[0].name}
+        </Card.Body>
+      </div>
     </Card>
   );
 }
@@ -17,5 +29,7 @@ TransactionCard.propTypes = {
     categoryName: string,
     toUid: string,
     fromUid: string,
+    fromUser: instanceOf(Array),
+    toUser: instanceOf(Array),
   }).isRequired,
 };

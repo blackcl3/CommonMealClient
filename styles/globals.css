@@ -159,3 +159,15 @@ body {
 .myProfileImage {
   max-height: 600px;
 }
+
+/* transaction card */
+
+.transaction-card {
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.transaction-card-photo {
+  min-height: 60px;
+  margin: auto;
+}

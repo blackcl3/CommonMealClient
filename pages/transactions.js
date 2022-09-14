@@ -8,11 +8,9 @@ export default function TransactionsPage() {
   const getAllTransactions = () => {
     getTransactionsAndDisplayNames().then(setTransactions);
   };
-  console.warn(transaction);
 
   useEffect(() => {
     getAllTransactions();
-    console.warn(transaction);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -20,7 +18,7 @@ export default function TransactionsPage() {
     <>
       <div>Transactions Page</div>
       {transaction?.map((transactionObj) => (
-        <TransactionCard obj={transactionObj} onChange={getAllTransactions} onUpdate={getTransactionsAndDisplayNames} />
+        <TransactionCard key={transactionObj.transactionFirebaseKey} obj={transactionObj} onChange={getAllTransactions} onUpdate={getTransactionsAndDisplayNames} />
       ))}
     </>
   );
