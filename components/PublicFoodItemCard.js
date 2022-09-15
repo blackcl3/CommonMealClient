@@ -3,6 +3,7 @@ import PropTypes, { bool, string } from 'prop-types';
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { updateFoodItem } from '../api/foodItemData';
+import { createTransaction } from '../api/transactionData';
 import { useAuth } from '../utils/context/authContext';
 
 export default function PublicFoodItemCard({ obj }) {
@@ -13,16 +14,31 @@ export default function PublicFoodItemCard({ obj }) {
     router.push(`/food/public/${obj.foodItemFirebaseKey}`);
   };
 
+  const date = () => {
+    const rawDate = new Date();
+    const dateString = rawDate.toLocaleString();
+    return dateString;
+  };
+
   const switchCardOwner = () => {
     if (obj.uid === user.uid) {
       window.confirm('You already gave this away!');
     } else if (window.confirm(`This ${obj.name} looks great! Be sure to use it.`)) {
+      const transactionObj = {
+        fromUid: obj.uid,
+        toUid: user.uid,
+        dateCreated: date(),
+        foodItemFirebaseKey: obj.foodItemFirebaseKey,
+        categoryFirebaseKey: obj.categoryFirebaseKey,
+        categoryName: obj.categoryName,
+      };
       const updatedObj = obj;
       updatedObj.status = 'open';
       updatedObj.uid = user.uid;
-      updateFoodItem(updatedObj, user.uid).then(() => {
-        router.push('/food/myFood');
-      });
+      createTransaction(transactionObj).then(updateFoodItem(updatedObj, user.uid))
+        .then(() => {
+          router.push('/food/myFood');
+        });
     }
   };
 
@@ -55,12 +71,13 @@ PublicFoodItemCard.propTypes = {
   obj: PropTypes.shape({
     description: string,
     name: string,
-    categoryName: string,
+    categoryFirebaseKey: string,
     photoURL: string,
     isPublic: bool,
     dateAddedToDB: string,
     location: string,
     foodItemFirebaseKey: string,
+    categoryName: string,
     uid: string,
   }).isRequired,
 };
