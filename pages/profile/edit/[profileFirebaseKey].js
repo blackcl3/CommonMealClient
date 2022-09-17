@@ -13,6 +13,8 @@ export default function EditPage() {
   }, [profileFirebaseKey]);
 
   return (
-    <UserProfileForm obj={editProfile} />
+    <div className="profile-form-container">
+      <UserProfileForm obj={editProfile} />
+    </div>
   );
 }

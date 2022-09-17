@@ -58,22 +58,24 @@ export default function MyFoodPage() {
             ))}
           </Form.Select>
         </div>
-        <div className="addFoodButtonDiv">
-          <Button href="newFoodItem">Add New Food</Button>
-        </div>
-        <div className="filter-button-div">
-          <Button onClick={handleClick} className="food-filter-button">
-            freezer
-          </Button>
-          <Button onClick={handleClick} className="food-filter-button">
-            fridge
-          </Button>
-          <Button onClick={handleClick} className="food-filter-button">
-            pantry
-          </Button>
-          <Button onClick={resetPage} className="food-filter-button">
-            clear
-          </Button>
+        <div className="button-container container">
+          <div className="addFoodButtonDiv">
+            <Button href="newFoodItem">Add New Food</Button>
+          </div>
+          <div className="filter-button-div">
+            <Button onClick={handleClick} className="food-filter-button">
+              freezer
+            </Button>
+            <Button onClick={handleClick} className="food-filter-button">
+              fridge
+            </Button>
+            <Button onClick={handleClick} className="food-filter-button">
+              pantry
+            </Button>
+            <Button onClick={resetPage} className="food-filter-button">
+              clear
+            </Button>
+          </div>
         </div>
         <div className="food-card-container container">
           {filteredFood

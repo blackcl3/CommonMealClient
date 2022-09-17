@@ -58,29 +58,29 @@ function FoodItemForm({ obj }) {
     }
   };
   return (
-    <Form onSubmit={handleSubmit}>
-      <h1>{obj.foodItemFirebaseKey ? 'Edit' : 'Create New'} Food Item</h1>
-      <FormGroup controlId="floatingSelect">
+    <Form onSubmit={handleSubmit} className="food-item-form">
+      <h1 className="food-item-form-h1">{obj.foodItemFirebaseKey ? 'Edit' : 'Create New'} Food Item</h1>
+      <FormGroup controlId="floatingSelect" className="food-item-form-input">
         <FloatingLabel label="Location">
           <Form.Select aria-label="Location Select" name="location" onChange={handleChange} required>
-            <option value={formInput.location || ''}>{ obj.foodItemFirebaseKey ? formInput.location : 'Select a Location'}</option>
+            <option value={formInput.location || ''}>{obj.foodItemFirebaseKey ? formInput.location : 'Select a Location'}</option>
             <option value="fridge">Fridge</option>
             <option value="freezer">Freezer</option>
             <option value="pantry">Pantry</option>
           </Form.Select>
         </FloatingLabel>
       </FormGroup>
-      <FormGroup controlId="form.Input1">
+      <FormGroup controlId="form.Input1" className="food-item-form-input">
         <FloatingLabel label="Food Item Name" className="mb-3">
           <Form.Control type="text" placeholder="Enter Name" name="name" value={formInput.name.toLocaleLowerCase()} onChange={handleChange} required />
         </FloatingLabel>
       </FormGroup>
       <FormGroup>
-        <FloatingLabel controlId="floatingInput2" label="Food Item Description" className="mb-3">
+        <FloatingLabel controlId="floatingInput2" label="Food Item Description" className="mb-3 food-item-form-input">
           <Form.Control type="text" placeholder="Enter Description" name="description" value={formInput.description} onChange={handleChange} />
         </FloatingLabel>
       </FormGroup>
-      <FormGroup controlId="floatingSelect">
+      <FormGroup controlId="floatingSelect" className="food-item-form-input">
         <FloatingLabel label="category" required>
           <Form.Select aria-label="category select" name="categoryFirebaseKey" onChange={handleChange}>
             <option value="">Select a Category</option>
@@ -92,35 +92,19 @@ function FoodItemForm({ obj }) {
           </Form.Select>
         </FloatingLabel>
       </FormGroup>
-      <FormGroup>
-        <Form.Check
-          className="text-black mb-3"
-          type="switch"
-          id="isPublic"
-          name="isPublic"
-          label="Make Food Item Public?"
-          checked={formInput.isPublic}
-          onChange={(e) => {
-            setFormInput((prevState) => ({
-              ...prevState,
-              isPublic: e.target.checked,
-            }));
-          }}
-          required
-        />
-      </FormGroup>
-      <FormGroup>
+      <FormGroup className="food-item-form-input">
         <FloatingLabel label="Date You Got This Item">
           <Form.Control type="date" name="dateAddedToLocation" onChange={handleChange} value={formInput.dateAddedToLocation} />
         </FloatingLabel>
       </FormGroup>
-      <FormGroup>
+      <FormGroup className="food-item-form-input">
         <FloatingLabel label="Photo of Your Food">
           <Form.Control type="text" name="photoURL" onChange={handleChange} value={formInput.photoURL} />
         </FloatingLabel>
       </FormGroup>
-
-      <Button type="submit">{obj.foodItemFirebaseKey ? 'Update' : 'Add New'} Food Item</Button>
+      <div>
+        <Button type="submit">{obj.foodItemFirebaseKey ? 'Update' : 'Add New'} Food Item</Button>
+      </div>
     </Form>
   );
 }

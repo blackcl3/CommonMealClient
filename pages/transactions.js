@@ -16,10 +16,12 @@ export default function TransactionsPage() {
 
   return (
     <>
-      <div>Transactions Page</div>
-      {transaction?.map((transactionObj) => (
-        <TransactionCard key={transactionObj.transactionFirebaseKey} obj={transactionObj} onChange={getAllTransactions} onUpdate={getTransactionsAndDisplayNames} />
-      ))}
+      <h1>Transactions Page</h1>
+      <div className="transactions-container">
+        {transaction?.map((transactionObj) => (
+          <TransactionCard className="transaction-card" key={transactionObj.transactionFirebaseKey} obj={transactionObj} onChange={getAllTransactions} onUpdate={getTransactionsAndDisplayNames} />
+        ))}
+      </div>
     </>
   );
 }

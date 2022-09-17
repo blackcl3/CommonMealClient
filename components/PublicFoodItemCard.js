@@ -46,7 +46,7 @@ export default function PublicFoodItemCard({ obj }) {
   // may need to add display name to food obj; otherwise I'll need a merge call for users/uids (may be implementing anyways)
 
   return (
-    <Card className="food-card">
+    <Card className="public-food-item-card">
       <Card.Img variant="top" src={obj.photoURL} onClick={handleClick} />
       <Card.Body className="food-card-body">
         <div className="food-card-title-div">

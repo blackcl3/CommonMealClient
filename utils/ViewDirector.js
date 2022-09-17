@@ -17,7 +17,7 @@ const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) 
     return (
       <>
         <NavBar /> {/* NavBar only visible if user is logged in and is in every view */}
-        <div className="container background-image">
+        <div className="background-image">
           <Component {...pageProps} />
         </div>
         <footer>
