@@ -38,7 +38,7 @@ function UserProfileForm({ obj }) {
     e.preventDefault();
     if (obj.profileFirebaseKey) {
       updateProfile(formInput)
-        .then(() => { router.push('/food/myFood'); });
+        .then(() => { router.push('/profile/myProfile'); });
     } else {
       const payload = {
         ...formInput, uid: user.uid, isPublic: true,
@@ -50,29 +50,31 @@ function UserProfileForm({ obj }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} className="profile-form">
       <h1>{obj.profileFirebaseKey ? 'Edit' : 'Create New'} Profile</h1>
-      <FormGroup controlId="form.Input1">
+      <FormGroup controlId="form.Input1" className="profile-form-input">
         <FloatingLabel label="Full Name">
           <Form.Control type="text" placeholder="Enter Your Name" name="name" value={formInput.name} onChange={handleChange} required />
         </FloatingLabel>
       </FormGroup>
-      <FormGroup controlId="form.Input2">
+      <FormGroup controlId="form.Input2" className="profile-form-input">
         <FloatingLabel label="Address">
           <Form.Control type="text" placeholder="Enter Your Address" name="address" value={formInput.address} onChange={handleChange} required />
         </FloatingLabel>
       </FormGroup>
-      <FormGroup controlId="form.Input3">
+      <FormGroup controlId="form.Input3" className="profile-form-input">
         <FloatingLabel label="Zip">
           <Form.Control type="text" placeholder="Enter Your Zip Code" name="zip" value={formInput.zip} onChange={handleChange} required />
         </FloatingLabel>
       </FormGroup>
-      <FormGroup controlId="form.Input4">
+      <FormGroup controlId="form.Input4" className="profile-form-input">
         <FloatingLabel label="Photo URL">
           <Form.Control type="text" placeholder="Enter Your Profile Photo URL" name="photoURL" value={formInput.photoURL} onChange={handleChange} required />
         </FloatingLabel>
       </FormGroup>
-      <Button type="submit">{obj.profileFirebaseKey ? 'Update' : 'Add New'} Profile</Button>
+      <div>
+        <Button type="submit">{obj.profileFirebaseKey ? 'Update' : 'Add New'} Profile</Button>
+      </div>
     </Form>
   );
 }

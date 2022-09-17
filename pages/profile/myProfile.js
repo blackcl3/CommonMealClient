@@ -17,6 +17,8 @@ export default function MyProfilePage() {
   }, []);
 
   return (
-    <MyProfileCard obj={profileObj} />
+    <div className="profile-container">
+      <MyProfileCard obj={profileObj} />
+    </div>
   );
 }

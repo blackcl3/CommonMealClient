@@ -27,10 +27,10 @@ export default function IndividualFoodItemPage() {
 
   return (
     <>
-      <h1>Individual Food Item Page</h1>
-      <PublicFoodItemCard obj={foodItemDetails} />
+      <h1 className="publicFoodItemTitle">Public Food Item</h1>
+      <PublicFoodItemCard obj={foodItemDetails} className="public-food-item-card" />
       <div>
-        <h3>Section for Comments</h3>
+        <h3 className="publicFoodItemTitle">Comments</h3>
         {comments?.map((comment) => (
           <CommentCard obj={comment} key={comment.commentFirebaseKey} setCommentUpdate={setCommentUpdate} />
         ))}
