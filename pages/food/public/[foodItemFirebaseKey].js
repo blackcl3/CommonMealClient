@@ -19,22 +19,24 @@ export default function IndividualFoodItemPage() {
   useEffect(() => {
     const abortController = new AbortController();
     getFoodItemDetails();
-    return (() => {
+    return () => {
       abortController.abort();
-    });
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [comments]);
 
   return (
     <>
       <h1 className="publicFoodItemTitle">Public Food Item</h1>
-      <PublicFoodItemCard obj={foodItemDetails} className="public-food-item-card" />
-      <div>
-        <h3 className="publicFoodItemTitle">Comments</h3>
-        {comments?.map((comment) => (
-          <CommentCard obj={comment} key={comment.commentFirebaseKey} setCommentUpdate={setCommentUpdate} />
-        ))}
-        <CommentForm foodItemFirebaseKey={foodItemFirebaseKey} obj={commentToUpdate} />
+      <div className="individual-public-food-item-div">
+        <PublicFoodItemCard obj={foodItemDetails} className="public-food-item-card-individual" />
+        <div>
+          <h3 className="publicFoodItemTitle">Comments</h3>
+          {comments?.map((comment) => (
+            <CommentCard obj={comment} key={comment.commentFirebaseKey} setCommentUpdate={setCommentUpdate} />
+          ))}
+          <CommentForm foodItemFirebaseKey={foodItemFirebaseKey} obj={commentToUpdate} />
+        </div>
       </div>
     </>
   );

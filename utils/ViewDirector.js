@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import DefaultBackgroundImage from '../public/wepik-photo-mode-202286-21024.jpeg';
 import { useAuth } from './context/authContext';
 import Loading from '../components/Loading';
 import Signin from '../components/Signin';
@@ -17,7 +18,7 @@ const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) 
     return (
       <>
         <NavBar /> {/* NavBar only visible if user is logged in and is in every view */}
-        <div className="background-image">
+        <div style={{ backgroundImage: `url(${DefaultBackgroundImage})` }}>
           <Component {...pageProps} />
         </div>
         <footer>

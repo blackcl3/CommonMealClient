@@ -57,12 +57,12 @@ export default function CommentForm({ obj, foodItemFirebaseKey }) {
   return (
     <Form onSubmit={handleSubmit} className="comment-form">
       <h1>Comment Form</h1>
-      <FormGroup>
+      <FormGroup className="comment-form-input">
         <FloatingLabel label="Comment Text">
           <Form.Control type="text" placeholder="Enter A Comment" value={formInput.commentText} name="commentText" onChange={handleChange} required />
         </FloatingLabel>
       </FormGroup>
-      <h2>{user.displayName}</h2>
+      <h6>User Name: {user.displayName}</h6>
       <Button type="submit">{comment.commentFirebaseKey ? 'Edit' : 'Add'} Your Comment</Button>
     </Form>
   );
