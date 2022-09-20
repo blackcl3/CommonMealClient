@@ -10,7 +10,7 @@ body {
 }
 
 .background-image {
-  background-image: url('../public/wepik-photo-mode-202286-21024.jpeg');
+  background-image: url('wepik-photo-mode-202286-21024.jpeg');
   height: 800px;
   background-size: cover;
   background-repeat: repeat-y;
