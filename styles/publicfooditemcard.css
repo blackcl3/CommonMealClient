@@ -1,0 +1,24 @@
+.public-items-select-btn-div {
+  text-align: center;
+}
+
+.public-items-select-btn {
+  width: 100%;
+}
+
+.publicFoodItemTitle {
+  text-align: center;
+  margin: 50px 0;
+  font-weight: 700;
+}
+
+.publicItemsDiv {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.public-food-item-card {
+  margin: 20px 20px 0 20px;
+  width: 300px;
+}

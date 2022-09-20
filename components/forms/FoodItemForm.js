@@ -15,7 +15,7 @@ const initialState = {
   photoURL: '',
   description: '',
   dateAddedToLocation: '',
-  isPublic: '',
+  isPublic: true,
 };
 
 function FoodItemForm({ obj }) {

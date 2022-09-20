@@ -1,5 +1,8 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import 'myfooditemcard.css';
+@import 'transaction-card.css';
+@import 'publicfooditemcard.css';
 
 html,
 body {
@@ -10,7 +13,7 @@ body {
 }
 
 .background-image {
-  background-image: url('../public/wepik-photo-mode-202286-21024.jpeg');
+  /* background-image: url('../public/wepik-photo-mode-202286-21024.jpeg'); */
   height: 800px;
   background-size: cover;
   background-repeat: repeat-y;
@@ -107,73 +110,10 @@ footer {
   text-align: center;
 }
 
-/* My Food Card */
+.card-subtitle {
+  line-height: 1.5;
+} 
 
-.food-card-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.food-card {
-  width: 300px;
-  margin: 20px;
-}
-
-.food-card-title-div {
-  text-align: center;
-}
-
-.food-card-button-group{
-  justify-content: center;
-  text-align: center;
-  padding: 0 10px;
-}
-
-.food-card-description {
-  padding: 10px 0;
-}
-
-.recycleBtn {
-  margin-right: 20px;
-}
-
-.deleteBtn {
-  margin-left: 20px;
-}
-
-.publicIcon {
-  text-align: center;
-}
-
-.public-items-select-btn-div {
-  text-align: center;
-}
-
-.public-items-select-btn {
-  width: 100%;
-}
-
-.publicFoodItemTitle {
-  text-align: center;
-  margin: 50px 0;
-  font-weight: 700;
-}
-
-.publicItemsDiv {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.comment-form {
-  margin: 20px 0;
-}
-
-.public-food-item-card {
-  margin: 0 20px;
-  width: 300px;
-}
 
 /* Food Item Form */
 .food-item-form {
@@ -215,18 +155,29 @@ footer {
   margin: 20px 0;
 }
 
+/* comment form */
 
-/* transaction card */
-
-.transaction-card {
-  flex-wrap: wrap;
-  flex-direction: row;
-  margin: 20px 0;
-  text-align: center;
+.comment-form {
+  margin: 20px;
+  background-color: white;
+  padding: 1.5rem;
+  max-width: 500px;
 }
 
-.transaction-card-photo {
-  min-height: 60px;
+.comment-form-input{
+  margin: .75rem 0;
+}
+
+.comment-form-user-name {
+  margin: .75rem 0;
+}
+
+.individual-public-food-item-div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.public-food-item-card-individual {
   margin: auto;
-  padding: 10px;
 }

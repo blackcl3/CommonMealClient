@@ -1,0 +1,38 @@
+/* My Food Card */
+
+.food-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.food-card {
+  width: 300px;
+  margin: 20px;
+}
+
+.food-card-title-div {
+  text-align: center;
+}
+
+.food-card-button-group{
+  justify-content: center;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.food-card-description {
+  padding: 10px 0;
+}
+
+.recycleBtn {
+  margin-right: 20px;
+}
+
+.deleteBtn {
+  margin-left: 20px;
+}
+
+.publicIcon {
+  text-align: center;
+}
