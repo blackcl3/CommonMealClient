@@ -4,13 +4,6 @@ import PropTypes, { instanceOf, string } from 'prop-types';
 import Emoji from './Emoji';
 
 export default function TransactionCard({ obj }) {
-  // function getCategoryEmoji() {
-  //   if (obj.categoryName === 'other') {
-  //     return String.fromCodePoint('U+1F372');
-  //   }
-  //   return String.fromCodePoint('U+1F963');
-  // }
-
   return (
     <Card className="transaction-card">
       <div>
