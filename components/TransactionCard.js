@@ -10,7 +10,7 @@ export default function TransactionCard({ obj }) {
         <Card.Img src={obj.fromUser[0].photoURL} className="transaction-card-photo" />
       </div>
       <div>
-        <Card.Body>
+        <Card.Body className="transaction-card-body">
           {obj.fromUser[0].name} gifted <Emoji obj={obj} /> to {obj.toUser[0].name}
         </Card.Body>
       </div>

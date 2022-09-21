@@ -16,7 +16,7 @@ export default function TransactionsPage() {
 
   return (
     <>
-      <h1>Transactions Page</h1>
+      <h1 className="transactions-h1">Transactions Page</h1>
       <div className="transactions-container">
         {transaction?.map((transactionObj) => (
           <TransactionCard className="transaction-card" key={transactionObj.transactionFirebaseKey} obj={transactionObj} onChange={getAllTransactions} onUpdate={getTransactionsAndDisplayNames} />
