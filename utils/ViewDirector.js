@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import PropTypes from 'prop-types';
-import DefaultBackgroundImage from '../public/wepik-photo-mode-202286-21024.jpeg';
 import { useAuth } from './context/authContext';
 import Loading from '../components/Loading';
 import Signin from '../components/Signin';
@@ -18,8 +18,9 @@ const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) 
     return (
       <>
         <NavBar /> {/* NavBar only visible if user is logged in and is in every view */}
-        <div style={{ backgroundImage: `url(${DefaultBackgroundImage})` }}>
-          <Component {...pageProps} />
+        {/* <Image src="/wepik-photo-mode-202286-21024.jpeg" alt="hands" layout="fill" /> */}
+        <div className="background-image">
+          <Component {...pageProps} className="background-image" />
         </div>
         <footer>
           <a href="https://www.freepik.com/free-photo/food-delivery-new-normal-lifestyle-concept_17602112.htm#page=6&query=food%20waste&position=42&from_view=search#position=42&page=6&query=food%20waste">Image by rawpixel.com on Freepik</a>

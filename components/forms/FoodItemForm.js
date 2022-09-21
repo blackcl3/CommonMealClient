@@ -50,7 +50,7 @@ function FoodItemForm({ obj }) {
         .then(() => { router.push('/food/myFood'); });
     } else {
       const payload = {
-        ...formInput, uid: user.uid, dateAddedToDB: date(), status: 'open',
+        ...formInput, uid: user.uid, dateAddedToDB: date(), status: 'open', isPublic: true,
       };
       createFoodItem(payload).then(() => {
         router.push('/food/myFood');
