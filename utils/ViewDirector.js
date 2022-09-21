@@ -22,9 +22,6 @@ const ViewDirectorBasedOnUserAuthStatus = ({ component: Component, pageProps }) 
         <div className="background-image">
           <Component {...pageProps} className="background-image" />
         </div>
-        <footer>
-          <a href="https://www.freepik.com/free-photo/food-delivery-new-normal-lifestyle-concept_17602112.htm#page=6&query=food%20waste&position=42&from_view=search#position=42&page=6&query=food%20waste">Image by rawpixel.com on Freepik</a>
-        </footer>
       </>
     );
   }

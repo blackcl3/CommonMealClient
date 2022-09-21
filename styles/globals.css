@@ -4,12 +4,15 @@
 @import 'transaction-card.css';
 @import 'publicfooditemcard.css';
 
+/* photo credit: https://www.freepik.com/free-photo/food-delivery-new-normal-lifestyle-concept_17602112.htm#page=6&query=food%20waste&position=42&from_view=search#position=42&page=6&query=food%20waste">Image by rawpixel.com on Freepik</a>  */
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
-  background-color: #c4e0de;
+  background-color: #c4e0de !important;
+  height: 100%;
 }
 
 .background-image {
@@ -30,8 +33,10 @@ a {
   box-sizing: border-box;
 }
 
-footer {
-  font-size: xx-small;
+.footer {
+  font-size: 6px;
+  background-color: #c4e0de;
+  color: #363636;
 }
 
 .create-profile-sign-in {
