@@ -8,11 +8,13 @@
 
 ## Topics
 - [About](#about)
--[Screenshot](#screenshots)
--[Tech Stack](#stack)
+- [Screenshot](#screenshots)
+- [Tech Stack](#stack)
 ___
 ## About
-CommonMeal helps users cut down on the amount of food waste they generate through better organizing food storage and allowing users to give away unwanted food to other users. 
+CommonMeal helps users cut down on the amount of food waste they generate through 
+- better organizing food storage and 
+- allowing users to give away unwanted food to other users. 
 
 ## Screenshots
 
