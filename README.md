@@ -8,9 +8,11 @@
 
 ## Topics
 - [About](#about)
+-[Screenshot](#screenshots)
+-[Tech Stack](#stack)
 ___
 ## About
-CommonMeal is an application designed to help users cut down on the amount of food waste they generate by providing tools to manage food organization and match unwanted food items with other users who want them. 
+CommonMeal helps users cut down on the amount of food waste they generate through better organizing food storage and allowing users to give away unwanted food to other users. 
 
 ## Screenshots
 
@@ -21,3 +23,6 @@ CommonMeal is an application designed to help users cut down on the amount of fo
 ![Screen Shot 2022-09-20 at 9 15 32 PM](https://user-images.githubusercontent.com/24661749/192073561-055e78a6-bef1-42e8-bdf4-19b89da0b5fd.png)
 
 ![Screen Shot 2022-09-20 at 9 12 48 PM](https://user-images.githubusercontent.com/24661749/192073550-c6b9af2e-c360-4e8c-995f-661dc25bcc1b.png)
+
+### Stack
+This app was built using React, Next.JS, Firebase, and React-Bootstrap. 
