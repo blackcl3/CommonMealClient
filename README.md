@@ -9,8 +9,9 @@
 ## Topics
 - [About](#about)
 - [Install](#install)
-- [Screenshot](#screenshots)
+- [Screenshots](#screenshots)
 - [Tech Stack](#stack)
+- [Wireframe and ERD](#prototype)
 ___
 ## About
 CommonMeal helps users cut down on the amount of food waste they generate through 
@@ -32,3 +33,9 @@ CommonMeal helps users cut down on the amount of food waste they generate throug
 
 ### Stack
 This app was built using React, Next.JS, Firebase, and React-Bootstrap. 
+
+### Prototype
+
+Link to Lucidchart ERD: [link](https://lucid.app/lucidchart/09b6388f-4f8e-45fe-a91c-01883cbcf48d/edit?viewport_loc=-19%2C-103%2C1933%2C1129%2C0_0&invitationId=inv_8fa9d748-3f2d-4952-9dde-4edd0a9b1e2f#)
+
+Link to Figma Wireframe: [link](https://www.figma.com/file/2l6zVL3Ey8xSb0QFatbIVv/FE-Capstone-Wireframe?node-id=0%3A1)
