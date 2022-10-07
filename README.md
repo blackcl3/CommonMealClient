@@ -8,13 +8,17 @@
 
 ## Topics
 - [About](#about)
+-[Running the App](#running the app)
 - [Screenshot](#screenshots)
 - [Tech Stack](#stack)
 ___
 ## About
 CommonMeal helps users cut down on the amount of food waste they generate through 
 - better organizing food storage and 
-- allowing users to give away unwanted food to other users. 
+- allowing users to give away unwanted food to other users.
+
+## Running the App
+ Git clone and pull down the repo. Install required packages using ```npm i``` and ```npm run prepare```. To start local instance, run ```npm run dev```.
 
 ## Screenshots
 
