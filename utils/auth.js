@@ -1,5 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import { clientCredentials } from './client';
+
+console.warn(clientCredentials.databaseURL);
 
 const signIn = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -10,4 +13,19 @@ const signOut = () => {
   firebase.auth().signOut();
 };
 
-export { signIn, signOut };
+const checkUser = (uid) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/checkuser`, {
+    method: 'POST',
+    body: JSON.stringify({
+      uid,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  })
+    .then((resp) => resolve(resp.json()))
+    .catch(reject);
+});
+
+export { signIn, signOut, checkUser };
