@@ -3,6 +3,21 @@ import { clientCredentials } from '../utils/client';
 
 const dbUrl = clientCredentials.databaseURL;
 
+const checkUser = (uid) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/checkuser`, {
+    method: 'POST',
+    body: JSON.stringify({
+      uid,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  })
+    .then((resp) => resolve(resp.json()))
+    .catch(reject);
+});
+
 const getUserProfiles = () => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/profile.json`)
     .then((response) => {
@@ -55,5 +70,5 @@ const updateProfile = (profileObj, uid) => new Promise((resolve, reject) => {
 });
 
 export {
-  getUserProfiles, getSingleUserProfile, getSingleUserObj, createUserProfile, updateProfile,
+  checkUser, getUserProfiles, getSingleUserProfile, getSingleUserObj, createUserProfile, updateProfile,
 };
