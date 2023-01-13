@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { getSingleUserObj, getSingleUserProfile } from '../../api/profileData';
+import getSingleNeighborhood from '../../api/neighborhoodData';
 import MyProfileCard from '../../components/MyProfileCard';
 import { useAuth } from '../../utils/context/authContext';
 
 export default function MyProfilePage() {
-  const [profileObj, setProfileObj] = useState({});
   const { user } = useAuth();
+  const [neighborhoodObj, setNeighborhood] = useState({});
 
-  const getUserProfile = () => {
-    getSingleUserProfile(user.uid).then((response) => getSingleUserObj(response[0].profileFirebaseKey)).then(setProfileObj);
+  const getNeighborhood = () => {
+    getSingleNeighborhood(user.neighborhood).then(setNeighborhood);
   };
 
   useEffect(() => {
-    getUserProfile();
+    getNeighborhood(user.neighborhood);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   return (
     <div className="profile-container">
-      <MyProfileCard obj={profileObj} />
+      <MyProfileCard name={user.name} address={user.address} photoURL={user.photo_url} neighborhood={neighborhoodObj.name} uid={user.uid} />
     </div>
   );
 }

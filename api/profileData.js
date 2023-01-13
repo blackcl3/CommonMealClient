@@ -3,23 +3,8 @@ import { clientCredentials } from '../utils/client';
 
 const dbUrl = clientCredentials.databaseURL;
 
-const checkUser = (uid) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/checkuser`, {
-    method: 'POST',
-    body: JSON.stringify({
-      uid,
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-  })
-    .then((resp) => resolve(resp.json()))
-    .catch(reject);
-});
-
 const getUserProfiles = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/profile.json`)
+  axios.get(`${dbUrl}/users`)
     .then((response) => {
       if (response) {
         resolve(Object.values(response.data));
@@ -31,13 +16,19 @@ const getUserProfiles = () => new Promise((resolve, reject) => {
 });
 
 const getSingleUserProfile = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/profile.json?orderBy="uid"&equalTo="${uid}"`).then((response) => {
-    if (response) {
-      resolve(Object.values(response.data));
-    } else {
-      resolve(null);
-    }
-  })
+  axios.get(`${dbUrl}/users?uid=${uid}`)
+    .then((response) => (response.data))
+    .then((data) => {
+      resolve(({
+        id: data[0].id,
+        name: data[0].name,
+        uid: data[0].uid,
+        photoURL: data[0].photo_url,
+        publicProfile: data[0].public_profile,
+        address: data[0].address,
+        neighborhood: data[0].neighborhood,
+      }));
+    })
     .catch(reject);
 });
 
@@ -70,5 +61,5 @@ const updateProfile = (profileObj, uid) => new Promise((resolve, reject) => {
 });
 
 export {
-  checkUser, getUserProfiles, getSingleUserProfile, getSingleUserObj, createUserProfile, updateProfile,
+  getUserProfiles, getSingleUserProfile, getSingleUserObj, createUserProfile, updateProfile,
 };

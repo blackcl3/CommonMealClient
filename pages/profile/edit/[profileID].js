@@ -1,16 +1,16 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { getSingleUserObj } from '../../../api/profileData';
+import { getSingleUserProfile } from '../../../api/profileData';
 import UserProfileForm from '../../../components/forms/UserProfileForm';
 
 export default function EditPage() {
   const [editProfile, setProfile] = useState({});
   const router = useRouter();
-  const { profileFirebaseKey } = router.query;
+  const { profileID } = router.query;
 
   useEffect(() => {
-    getSingleUserObj(profileFirebaseKey).then(setProfile);
-  }, [profileFirebaseKey]);
+    getSingleUserProfile(profileID).then(setProfile);
+  }, [profileID]);
 
   return (
     <div className="profile-form-container">

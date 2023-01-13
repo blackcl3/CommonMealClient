@@ -6,6 +6,7 @@ import {
 import PropTypes from 'prop-types';
 import { createUserProfile, updateProfile } from '../../api/profileData';
 import { useAuth } from '../../utils/context/authContext';
+import { getNeighborhoods } from '../../api/neighborhoodData';
 
 const initialState = {
   isPublic: true,
@@ -18,11 +19,13 @@ const initialState = {
 
 function UserProfileForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
+  const [neighborhoods, setNeighborhoods] = useState([]);
   const { user } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (obj.profileFirebaseKey) setFormInput(obj);
+    getNeighborhoods().then(setNeighborhoods);
+    if (obj.id) setFormInput(obj);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [obj]);
 
@@ -36,7 +39,7 @@ function UserProfileForm({ obj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (obj.profileFirebaseKey) {
+    if (obj.id) {
       updateProfile(formInput)
         .then(() => { router.push('/profile/myProfile'); });
     } else {
@@ -51,7 +54,7 @@ function UserProfileForm({ obj }) {
 
   return (
     <Form onSubmit={handleSubmit} className="profile-form">
-      <h1>{obj.profileFirebaseKey ? 'Edit' : 'Create New'} Profile</h1>
+      <h1>{obj.id ? 'Edit' : 'Create New'} Profile</h1>
       <FormGroup controlId="form.Input1" className="profile-form-input">
         <FloatingLabel label="Full Name">
           <Form.Control type="text" placeholder="Enter Your Name" name="name" value={formInput.name} onChange={handleChange} required />
@@ -63,17 +66,20 @@ function UserProfileForm({ obj }) {
         </FloatingLabel>
       </FormGroup>
       <FormGroup controlId="form.Input3" className="profile-form-input">
-        <FloatingLabel label="Zip">
-          <Form.Control type="text" placeholder="Enter Your Zip Code" name="zip" value={formInput.zip} onChange={handleChange} required />
-        </FloatingLabel>
-      </FormGroup>
-      <FormGroup controlId="form.Input4" className="profile-form-input">
         <FloatingLabel label="Photo URL">
           <Form.Control type="text" placeholder="Enter Your Profile Photo URL" name="photoURL" value={formInput.photoURL} onChange={handleChange} required />
         </FloatingLabel>
       </FormGroup>
+      <Form.Select aria-label="neighborhood select" name="neighborhood" onChange={handleChange}>
+        <option value="">Select a Category</option>
+        {neighborhoods?.map((neighborhood) => (
+          <option key={neighborhood.id} value={neighborhood.id} selected={obj.neighborhood.id === neighborhood.id}>
+            {neighborhood.name}
+          </option>
+        ))}
+      </Form.Select>
       <div>
-        <Button type="submit">{obj.profileFirebaseKey ? 'Update' : 'Add New'} Profile</Button>
+        <Button type="submit">{obj.id ? 'Update' : 'Add New'} Profile</Button>
       </div>
     </Form>
   );
@@ -82,11 +88,14 @@ function UserProfileForm({ obj }) {
 UserProfileForm.propTypes = {
   obj: PropTypes.shape({
     name: PropTypes.string,
+    id: PropTypes.number,
     photoURL: PropTypes.string,
-    profileFirebaseKey: PropTypes.string,
+    uid: PropTypes.string,
     address: PropTypes.string,
-    zip: PropTypes.string,
-    neighborhoodID: PropTypes.string,
+    neighborhood: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+    }),
     isPublic: PropTypes.bool,
   }),
 };
