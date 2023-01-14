@@ -1,4 +1,4 @@
-import PropTypes, { bool, string } from 'prop-types';
+import PropTypes, { bool, string, number } from 'prop-types';
 import React from 'react';
 import {
   Recycle, PencilSquare, Trash3Fill,
@@ -15,7 +15,7 @@ export default function MyFoodItemCard({ obj, photoURL, onUpdate }) {
 
   const deleteFoodItemCard = () => {
     if (window.confirm(`Delete your ${obj.name}?`)) {
-      deleteFoodItem(obj.foodItemFirebaseKey).then(() => onUpdate());
+      deleteFoodItem(obj.id).then(() => onUpdate());
     }
   };
 
@@ -38,13 +38,13 @@ export default function MyFoodItemCard({ obj, photoURL, onUpdate }) {
         </div>
         <Card.Subtitle>category: {obj.categoryName}</Card.Subtitle>
         <Card.Subtitle>location: {obj.location}</Card.Subtitle>
-        <Card.Subtitle>added: {obj.dateAddedToDB}</Card.Subtitle>
+        <Card.Subtitle>added: {obj.date}</Card.Subtitle>
         <Card.Text className="food-card-description">description: &quot;{obj.description}&quot;</Card.Text>
         <div className="food-card-button-group">
           <Button size="lg" onClick={giveAwayFoodItem} className="recycleBtn">
             <Recycle />
           </Button>
-          <Button variant="outline-primary" size="lg" href={`/food/edit/${obj.foodItemFirebaseKey}`} passhref="true" className="editBtn">
+          <Button variant="outline-primary" size="lg" href={`/food/edit/${obj.id}`} passhref="true" className="editBtn">
             <PencilSquare />
           </Button>
           <Button variant="danger" size="lg" onClick={deleteFoodItemCard} className="deleteBtn">
@@ -63,9 +63,9 @@ MyFoodItemCard.propTypes = {
     name: string,
     categoryName: string,
     isPublic: bool,
-    dateAddedToDB: string,
+    date: string,
     location: string,
-    foodItemFirebaseKey: string,
+    id: number,
     status: string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,

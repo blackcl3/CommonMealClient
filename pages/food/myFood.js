@@ -21,7 +21,10 @@ export default function MyFoodPage() {
     //   setFoodObject(response);
     //   setFilteredFood(response);
     // }).then(getFoodCategories().then(setCategories));
-    getUserFoodItems(user.uid).then(setFoodObject);
+    getUserFoodItems(user.uid).then((response) => {
+      setFoodObject(response);
+      setFilteredFood(response);
+    });
   };
 
   const handleClick = (e) => {
@@ -84,11 +87,14 @@ export default function MyFoodPage() {
           </div>
         </div>
         <div className="food-card-container container">
-          {filteredFood
-            ?.filter((foodObj) => foodObj.status === 'open')
+          {/* {filteredFood
+            ?.filter((foodObj) => foodObj.status === 'unavailable')
             .map((foodItem) => (
               <MyFoodItemCard key={foodItem.id} obj={foodItem} photoURL={foodItem.photo_url} onChange={getFoodItemandCategories} onUpdate={getPageContent} />
-            ))}
+            ))} */}
+          {filteredFood?.filter((foodObj) => foodObj.status === 'unavailable').map((foodItem) => (
+            <MyFoodItemCard key={foodItem.id} obj={foodItem} photoURL={foodItem.photo_url} onChange={getFoodItemandCategories} onUpdate={getPageContent} />
+          ))}
         </div>
       </div>
     </>
