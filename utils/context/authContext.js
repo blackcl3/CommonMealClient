@@ -17,7 +17,6 @@ AuthContext.displayName = 'AuthContext'; // Context object accepts a displayName
 const AuthProvider = (props) => {
   const [user, setUser] = useState(null);
   const [oAuthUser, setOAuthUser] = useState(null);
-  console.warn(user);
   // there are 3 states for the user:
   // null = application initial state, not yet loaded
   // false = user is not logged in, but the app has loaded

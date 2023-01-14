@@ -51,19 +51,6 @@ export default function MyFoodItemCard({ obj, onUpdate }) {
             <Trash3Fill />
           </Button>
         </div>
-        {/* <div className="publicIcon">
-          {obj.isPublic ? (
-            <>
-              <Eye />
-              <span>This Item is Public</span>
-            </>
-          ) : (
-            <>
-              <EyeSlash />
-              <span>This Item is Private</span>
-            </>
-          )}
-        </div> */}
       </Card.Body>
     </Card>
   );

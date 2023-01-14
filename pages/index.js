@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { getSingleUserProfile } from '../api/profileData';
@@ -8,13 +7,14 @@ function Home() {
   const { user } = useAuth();
   const [userProfile, setUserProfile] = useState({});
 
-  // const getUserProfile = () => {
-  //   getSingleUserProfile(user.uid).then(setUserProfile);
-  // };
+  const getUserProfile = () => {
+    getSingleUserProfile(user.uid).then(setUserProfile);
+  };
 
   useEffect(() => {
     document.title = 'CommonMeal';
-    // getUserProfile();
+    getUserProfile();
+    console.warn(userProfile);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
