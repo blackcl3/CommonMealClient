@@ -9,10 +9,10 @@ import { useAuth } from '../../utils/context/authContext';
 import { getNeighborhoods } from '../../api/neighborhoodData';
 
 const initialState = {
-  isPublic: true,
+  publicProfile: true,
   photoURL: '',
   address: '',
-  neighborhoodID: '',
+  neighborhood: '',
   zip: '',
   name: '',
 };
@@ -23,8 +23,12 @@ function UserProfileForm({ obj }) {
   const { user } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
+  const setNeighborhoodInfo = () => {
     getNeighborhoods().then(setNeighborhoods);
+  };
+
+  useEffect(() => {
+    setNeighborhoodInfo();
     if (obj.id) setFormInput(obj);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [obj]);
@@ -40,13 +44,13 @@ function UserProfileForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
-      updateProfile(formInput)
+      updateProfile(formInput, user.uid)
         .then(() => { router.push('/profile/myProfile'); });
     } else {
       const payload = {
-        ...formInput, uid: user.uid, isPublic: true,
+        ...formInput,
       };
-      createUserProfile(payload).then(() => {
+      createUserProfile(payload, user.uid).then(() => {
         router.push('/profile/myProfile');
       });
     }
@@ -70,10 +74,10 @@ function UserProfileForm({ obj }) {
           <Form.Control type="text" placeholder="Enter Your Profile Photo URL" name="photoURL" value={formInput.photoURL} onChange={handleChange} required />
         </FloatingLabel>
       </FormGroup>
-      <Form.Select aria-label="neighborhood select" name="neighborhood" onChange={handleChange}>
+      <Form.Select controlId="floatingSelect" aria-label="neighborhood select" name="neighborhood" onChange={handleChange} className="profile-form-input">
         <option value="">Select a Category</option>
         {neighborhoods?.map((neighborhood) => (
-          <option key={neighborhood.id} value={neighborhood.id} selected={obj.neighborhood.id === neighborhood.id}>
+          <option key={neighborhood.id} value={neighborhood.id} selected={formInput.neighborhood === neighborhood.id}>
             {neighborhood.name}
           </option>
         ))}
@@ -92,10 +96,7 @@ UserProfileForm.propTypes = {
     photoURL: PropTypes.string,
     uid: PropTypes.string,
     address: PropTypes.string,
-    neighborhood: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-    }),
+    neighborhood: PropTypes.number,
     isPublic: PropTypes.bool,
   }),
 };

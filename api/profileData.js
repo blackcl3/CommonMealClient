@@ -26,40 +26,44 @@ const getSingleUserProfile = (uid) => new Promise((resolve, reject) => {
         photoURL: data[0].photo_url,
         publicProfile: data[0].public_profile,
         address: data[0].address,
-        neighborhood: data[0].neighborhood,
+        neighborhood: data[0].neighborhood.id,
       }));
     })
     .catch(reject);
 });
 
-const getSingleUserObj = (profileFirebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/profile/${profileFirebaseKey}.json`)
-    .then((response) => {
-      if (response) {
-        resolve((response.data));
-      } else {
-        resolve([]);
-      }
-    })
-    .catch(reject);
-});
-
 const createUserProfile = (profileObj) => new Promise((resolve, reject) => {
-  axios.post(`${dbUrl}/profile.json`, profileObj)
-    .then((response) => {
-      const payload = { profileFirebaseKey: response.data.name };
-      axios.patch(`${dbUrl}/profile/${payload.profileFirebaseKey}.json`, payload)
-        .then(resolve);
-    })
+  const userObj = {
+    id: profileObj.id,
+    name: profileObj.name,
+    uid: profileObj.uid,
+    photo_url: profileObj.photoURL,
+    public_profile: profileObj.publicProfile,
+    address: profileObj.address,
+    neighborhood: Number(profileObj.neighborhood),
+  };
+  axios.post(`${dbUrl}/users.json`, userObj)
+    .then((response) => resolve(response.data))
     .catch(reject);
 });
 
 const updateProfile = (profileObj, uid) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/profile/${profileObj.profileFirebaseKey}.json`, profileObj)
-    .then(() => getSingleUserObj(uid).then(resolve))
+  const userObj = {
+    id: profileObj.id,
+    name: profileObj.name,
+    uid: profileObj.uid,
+    photo_url: profileObj.photoURL,
+    public_profile: profileObj.publicProfile,
+    address: profileObj.address,
+    neighborhood: Number(profileObj.neighborhood),
+  };
+  console.warn(uid);
+  axios
+    .put(`${dbUrl}/users/${userObj.id}`, userObj)
+    .then(() => getSingleUserProfile(uid).then(resolve))
     .catch(reject);
 });
 
 export {
-  getUserProfiles, getSingleUserProfile, getSingleUserObj, createUserProfile, updateProfile,
+  getUserProfiles, getSingleUserProfile, createUserProfile, updateProfile,
 };
