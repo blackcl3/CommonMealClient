@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import { updateFoodItem, deleteFoodItem } from '../api/foodItemData';
 import { useAuth } from '../utils/context/authContext';
 
-export default function MyFoodItemCard({ obj, onUpdate }) {
+export default function MyFoodItemCard({ obj, photoURL, onUpdate }) {
   const { user } = useAuth();
   const router = useRouter();
 
@@ -31,7 +31,7 @@ export default function MyFoodItemCard({ obj, onUpdate }) {
 
   return (
     <Card className="food-card">
-      <Card.Img variant="top" src={obj.photoURL} />
+      <Card.Img variant="top" src={photoURL} />
       <Card.Body className="food-card-body">
         <div className="food-card-title-div">
           <h2>{obj.name}</h2>
@@ -57,11 +57,11 @@ export default function MyFoodItemCard({ obj, onUpdate }) {
 }
 
 MyFoodItemCard.propTypes = {
+  photoURL: PropTypes.string.isRequired,
   obj: PropTypes.shape({
     description: string,
     name: string,
     categoryName: string,
-    photoURL: string,
     isPublic: bool,
     dateAddedToDB: string,
     location: string,

@@ -4,7 +4,8 @@ import { clientCredentials } from '../utils/client';
 const dbUrl = clientCredentials.databaseURL;
 
 const getUserFoodItems = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/food.json?orderBy="uid"&equalTo="${uid}"`)
+  axios
+    .get(`${dbUrl}/food?uid=${uid}`)
     .then((response) => {
       if (response) {
         resolve(Object.values(response.data));
@@ -15,8 +16,9 @@ const getUserFoodItems = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getSingleFoodItem = (foodItemFirebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/food/${foodItemFirebaseKey}.json`)
+const getSingleFoodItem = (foodItemId) => new Promise((resolve, reject) => {
+  axios
+    .get(`${dbUrl}/food/${foodItemId}`)
     .then((response) => resolve(response.data))
     .catch(reject);
 });
@@ -34,12 +36,8 @@ const getPublicFoodItems = () => new Promise((resolve, reject) => {
 });
 
 const createFoodItem = (foodObj) => new Promise((resolve, reject) => {
-  axios.post(`${dbUrl}/food.json`, foodObj)
-    .then((response) => {
-      const payload = { foodItemFirebaseKey: response.data.name };
-      axios.patch(`${dbUrl}/food/${payload.foodItemFirebaseKey}.json`, payload)
-        .then(resolve);
-    })
+  axios.post(`${dbUrl}/food`, foodObj)
+    .then((response) => resolve(response))
     .catch(reject);
 });
 
