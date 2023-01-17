@@ -24,7 +24,7 @@ const getSingleFoodItem = (foodItemId) => new Promise((resolve, reject) => {
 });
 
 const getPublicFoodItems = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/food.json?orderBy="status"&equalTo="available"`)
+  axios.get(`${dbUrl}/food?status=available`)
     .then((response) => {
       if (response) {
         resolve(Object.values(response.data));

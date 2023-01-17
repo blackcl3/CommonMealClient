@@ -92,7 +92,7 @@ export default function MyFoodPage() {
             .map((foodItem) => (
               <MyFoodItemCard key={foodItem.id} obj={foodItem} photoURL={foodItem.photo_url} onChange={getFoodItemandCategories} onUpdate={getPageContent} />
             ))} */}
-          {filteredFood?.filter((foodObj) => foodObj.status === 'unavailable').map((foodItem) => (
+          {filteredFood?.map((foodItem) => (
             <MyFoodItemCard key={foodItem.id} obj={foodItem} photoURL={foodItem.photo_url} onChange={getFoodItemandCategories} onUpdate={getPageContent} />
           ))}
         </div>

@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { useRouter } from 'next/router';
-import PropTypes, { bool, string } from 'prop-types';
+import PropTypes, { bool, shape, string } from 'prop-types';
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { updateFoodItem } from '../api/foodItemData';
@@ -21,24 +22,24 @@ export default function PublicFoodItemCard({ obj }) {
   };
 
   const switchCardOwner = () => {
-    if (obj.uid === user.uid) {
+    if (obj.uid.uid === user.uid) {
       window.confirm('You already gave this away!');
     } else if (window.confirm(`This ${obj.name} looks great! Be sure to use it.`)) {
-      const transactionObj = {
-        fromUid: obj.uid,
-        toUid: user.uid,
-        dateCreated: date(),
-        foodItemFirebaseKey: obj.foodItemFirebaseKey,
-        categoryFirebaseKey: obj.categoryFirebaseKey,
-        categoryName: obj.categoryName,
-      };
-      const updatedObj = obj;
-      updatedObj.status = 'open';
-      updatedObj.uid = user.uid;
-      createTransaction(transactionObj).then(updateFoodItem(updatedObj, user.uid))
-        .then(() => {
-          router.push('/food/myFood');
-        });
+      // const transactionObj = {
+      //   fromUid: obj.uid,
+      //   toUid: user.uid,
+      //   dateCreated: date(),
+      //   foodItemFirebaseKey: obj.foodItemFirebaseKey,
+      //   categoryFirebaseKey: obj.categoryFirebaseKey,
+      //   categoryName: obj.categoryName,
+      // };
+      // const updatedObj = obj;
+      // updatedObj.status = 'open';
+      // updatedObj.uid = user.uid;
+      // createTransaction(transactionObj).then(updateFoodItem(updatedObj, user.uid))
+      //   .then(() => {
+      //     router.push('/food/myFood');
+      //   });
     }
   };
 
@@ -47,20 +48,26 @@ export default function PublicFoodItemCard({ obj }) {
 
   return (
     <Card className="public-food-item-card">
-      <Card.Img variant="top" src={obj.photoURL} onClick={handleClick} />
+      <Card.Img variant="top" src={obj.photo_url} onClick={handleClick} />
       <Card.Body className="food-card-body">
         <div className="food-card-title-div">
           <h2>{obj.name}</h2>
         </div>
-        <Card.Subtitle>category: {obj.categoryName}</Card.Subtitle>
+        <Card.Subtitle>categories: {obj.food_item_category?.map((foodItemObj) => (<p>{foodItemObj.category.name}</p>))}</Card.Subtitle>
         <Card.Subtitle>location: {obj.location}</Card.Subtitle>
-        <Card.Subtitle>added: {obj.dateAddedToDB}</Card.Subtitle>
-        {/* <Card.Subtitle>donated by: TO DO</Card.Subtitle> */}
+        <Card.Subtitle>added: {obj.date}</Card.Subtitle>
+        <Card.Subtitle>donated by: {obj.uid.name} </Card.Subtitle>
         <Card.Text>description: &quot;{obj.description}&quot;</Card.Text>
         <div className="public-items-select-btn-div">
-          <Button variant="success" className="public-items-select-btn" onClick={switchCardOwner}>
-            SELECT
-          </Button>
+          {obj.uid.uid === user.uid ? (
+            <Button variant="success" disabled className="public-items-select-btn" onClick={switchCardOwner}>
+              SELECT
+            </Button>
+          ) : (
+            <Button variant="success" className="public-items-select-btn" onClick={switchCardOwner}>
+              SELECT
+            </Button>
+          )}
         </div>
       </Card.Body>
     </Card>
@@ -72,12 +79,14 @@ PublicFoodItemCard.propTypes = {
     description: string,
     name: string,
     categoryFirebaseKey: string,
-    photoURL: string,
+    photo_url: string,
     isPublic: bool,
-    dateAddedToDB: string,
+    date: string,
     location: string,
     foodItemFirebaseKey: string,
-    categoryName: string,
+    food_item_category: shape({
+      name: string,
+    }),
     uid: string,
   }).isRequired,
 };
