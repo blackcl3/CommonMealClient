@@ -7,7 +7,6 @@ import { useAuth } from '../../utils/context/authContext';
 export default function MyProfilePage() {
   const { user } = useAuth();
   const [neighborhoodObj, setNeighborhood] = useState({});
-  console.warn(user);
   const getNeighborhood = () => {
     getSingleNeighborhood(user.neighborhood).then(setNeighborhood);
   };

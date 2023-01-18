@@ -13,17 +13,15 @@ import { useAuth } from '../../utils/context/authContext';
 const initialState = {
   location: '',
   name: '',
-  categoryFirebaseKey: '',
   photoURL: '',
   description: '',
-  dateAddedToLocation: '',
-  isPublic: true,
+  date: '',
 };
 
 function FoodItemForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [categories, setFoodCategories] = useState([]);
-  const [userCategory, setUserCategories] = useState([]);
+  const [userCategories, setUserCategories] = useState([]);
   const { user } = useAuth();
   const router = useRouter();
 
@@ -47,23 +45,34 @@ function FoodItemForm({ obj }) {
   };
 
   const handleSelect = (e) => {
-    console.warn(e);
+    const category = e;
+    setUserCategories((prevState) => ({
+      ...prevState,
+      category,
+    }));
   };
 
   const date = () => {
     const rawDate = new Date();
-    const dateString = rawDate.toLocaleString();
+    const dateString = new Date(rawDate.getTime() - rawDate.getTimezoneOffset() * 60000).toISOString().split('T')[0];
     return dateString;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
-      updateFoodItem(formInput)
+      const payload = {
+        ...formInput,
+        status: 'unavailable',
+      };
+      updateFoodItem(payload)
         .then(() => { router.push('/food/myFood'); });
     } else {
       const payload = {
-        ...formInput, uid: user.uid, dateAddedToDB: date(), status: 'open',
+        ...formInput, date: date(), uid: user.uid, status: 'unavailable',
+      };
+      const categoryPayload = {
+        ...userCategories,
       };
       createFoodItem(payload).then(() => {
         router.push('/food/myFood');
@@ -72,7 +81,7 @@ function FoodItemForm({ obj }) {
   };
   return (
     <Form onSubmit={handleSubmit} className="food-item-form">
-      <h1 className="food-item-form-h1">{obj.id ? 'Edit' : 'Create New'} Food Item</h1>
+      <h1 className="food-item-form-h1">{obj.id ? 'Edit' : 'Add'} Food Item</h1>
       <FormGroup controlId="floatingSelect" className="food-item-form-input">
         <FloatingLabel label="Location">
           <Form.Select aria-label="Location Select" name="location" onChange={handleChange} required>
@@ -98,7 +107,7 @@ function FoodItemForm({ obj }) {
       </FormGroup>
       <FormGroup className="food-item-form-input">
         <FloatingLabel label="Date You Got This Item">
-          <Form.Control type="date" name="date" onChange={handleChange} value={formInput.dateAddedToLocation} />
+          <Form.Control type="date" name="date" onChange={handleChange} value={formInput.date} />
         </FloatingLabel>
       </FormGroup>
       <FormGroup className="food-item-form-input">

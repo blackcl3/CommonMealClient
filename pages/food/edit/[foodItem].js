@@ -6,11 +6,11 @@ import FoodItemForm from '../../../components/forms/FoodItemForm';
 export default function EditFoodItemPage() {
   const [editItem, setEditItem] = useState({});
   const router = useRouter();
-  const { foodItemFirebaseKey } = router.query;
+  const { foodItem } = router.query;
 
   useEffect(() => {
-    getSingleFoodItem(foodItemFirebaseKey).then(setEditItem);
-  }, [foodItemFirebaseKey]);
+    getSingleFoodItem(foodItem).then(setEditItem);
+  }, [foodItem]);
 
   return (
     <div>

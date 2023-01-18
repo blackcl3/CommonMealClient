@@ -6,12 +6,16 @@ import UserProfileForm from '../../../components/forms/UserProfileForm';
 export default function EditPage() {
   const [editProfile, setProfile] = useState({});
   const router = useRouter();
-  const { profileId } = router.query;
+  const { profile } = router.query;
 
   useEffect(() => {
-    getSingleUserProfile(profileId).then(setProfile);
+    const abortController = new AbortController();
+    getSingleUserProfile(profile).then(setProfile);
+    return () => {
+      abortController.abort();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profileId]);
+  }, [profile]);
 
   return (
     <div className="profile-form-container">
