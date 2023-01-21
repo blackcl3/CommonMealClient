@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { getFoodCategories } from '../../api/categoryData';
 import { getUserFoodItems } from '../../api/foodItemData';
-import { getFoodItemandCategories } from '../../api/mergedData';
 import MyFoodItemCard from '../../components/MyFoodItemCard';
 import { useAuth } from '../../utils/context/authContext';
 
@@ -11,16 +10,11 @@ export default function MyFoodPage() {
   // eslint-disable-next-line no-unused-vars
   const [foodObject, setFoodObject] = useState([]);
   const [filteredFood, setFilteredFood] = useState([]);
-  // const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
   const { user } = useAuth();
 
-  console.warn(user);
-
   const getPageContent = () => {
-    // getFoodItemandCategories(user.uid).then((response) => {
-    //   setFoodObject(response);
-    //   setFilteredFood(response);
-    // }).then(getFoodCategories().then(setCategories));
+    getFoodCategories().then(setCategories);
     getUserFoodItems(user.uid).then((response) => {
       setFoodObject(response);
       setFilteredFood(response);
@@ -38,14 +32,14 @@ export default function MyFoodPage() {
   };
 
   // eslint-disable-next-line no-unused-vars
-  const handleChange = (e) => {
-    const category = e.target.value;
-    const newFilter = foodObject.filter((foodObj) => foodObj.categoryFirebaseKey === category);
-    setFilteredFood(newFilter);
-    if ((category === '')) {
-      resetPage();
-    }
-  };
+  // const handleChange = (e) => {
+  //   const category = e.target.value;
+  //   const newFilter = foodObject.filter((foodObj) => foodObj.food_item_category.category === category);
+  //   setFilteredFood(newFilter);
+  //   if ((category === '')) {
+  //     resetPage();
+  //   }
+  // };
 
   useEffect(() => {
     getPageContent();
@@ -61,7 +55,7 @@ export default function MyFoodPage() {
           <Form.Select aria-label="category select" name="categoryFirebaseKey" onChange={handleChange}>
             <option value="">Select a Category</option>
             {categories?.map((category) => (
-              <option key={category.categoryFirebaseKey} value={category.categoryFirebaseKey}>
+              <option key={category.id} value={category.id}>
                 {category.name}
               </option>
             ))}
@@ -87,13 +81,8 @@ export default function MyFoodPage() {
           </div>
         </div>
         <div className="food-card-container container">
-          {/* {filteredFood
-            ?.filter((foodObj) => foodObj.status === 'unavailable')
-            .map((foodItem) => (
-              <MyFoodItemCard key={foodItem.id} obj={foodItem} photoURL={foodItem.photo_url} onChange={getFoodItemandCategories} onUpdate={getPageContent} />
-            ))} */}
           {filteredFood?.map((foodItem) => (
-            <MyFoodItemCard key={foodItem.id} obj={foodItem} photoURL={foodItem.photo_url} onChange={getFoodItemandCategories} onUpdate={getPageContent} />
+            <MyFoodItemCard key={foodItem.id} obj={foodItem} photoURL={foodItem.photo_url} onChange={getFoodCategories} onUpdate={getPageContent} />
           ))}
         </div>
       </div>

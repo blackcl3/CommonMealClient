@@ -103,7 +103,7 @@ function FoodItemForm({ obj }) {
         </FloatingLabel>
       </FormGroup>
       <FormGroup controlId="floatingSelect" className="food-item-form-input">
-        <Select aria-label="category select" name="category" form isMulti options={options} onChange={handleSelect} />
+        <Select aria-label="category select" name="category" isMulti options={options} onChange={handleSelect} />
       </FormGroup>
       <FormGroup className="food-item-form-input">
         <FloatingLabel label="Date You Got This Item">
@@ -127,7 +127,7 @@ FoodItemForm.propTypes = {
     name: PropTypes.string,
     photoURL: PropTypes.string,
     id: PropTypes.number,
-    categoryFirebaseKey: PropTypes.string,
+    food_item_category: PropTypes.arrayOf(PropTypes.shape),
     location: PropTypes.string,
     date: PropTypes.string,
   }),

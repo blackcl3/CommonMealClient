@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { useRouter } from 'next/router';
-import PropTypes, { bool, shape, string } from 'prop-types';
+import PropTypes, {
+  arrayOf, bool, shape, string,
+} from 'prop-types';
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { updateFoodItem } from '../api/foodItemData';
@@ -34,17 +36,14 @@ export default function PublicFoodItemCard({ obj }) {
       //   categoryName: obj.categoryName,
       // };
       // const updatedObj = obj;
-      // updatedObj.status = 'open';
+      // updatedObj.status = 'unavailable';
       // updatedObj.uid = user.uid;
-      // createTransaction(transactionObj).then(updateFoodItem(updatedObj, user.uid))
+      // updateFoodItem(updatedObj, user.uid))
       //   .then(() => {
       //     router.push('/food/myFood');
       //   });
     }
   };
-
-  // to do: call needs to get users by UID to reflect displayName; right now, it's just showing my display name
-  // may need to add display name to food obj; otherwise I'll need a merge call for users/uids (may be implementing anyways)
 
   return (
     <Card className="public-food-item-card">
@@ -53,7 +52,7 @@ export default function PublicFoodItemCard({ obj }) {
         <div className="food-card-title-div">
           <h2>{obj.name}</h2>
         </div>
-        <Card.Subtitle>categories: {obj.food_item_category?.map((foodItemObj) => (<p>{foodItemObj.category.name}</p>))}</Card.Subtitle>
+        <Card.Subtitle>categories: {obj.food_item_category?.map((foodItemObj) => (<Button key={foodItemObj.category.id} variant="outline-info" disabled className="category-name">{foodItemObj.category.name}</Button>))}</Card.Subtitle>
         <Card.Subtitle>location: {obj.location}</Card.Subtitle>
         <Card.Subtitle>added: {obj.date}</Card.Subtitle>
         <Card.Subtitle>donated by: {obj.uid.name} </Card.Subtitle>
@@ -84,9 +83,7 @@ PublicFoodItemCard.propTypes = {
     date: string,
     location: string,
     foodItemFirebaseKey: string,
-    food_item_category: shape({
-      name: string,
-    }),
-    uid: string,
+    food_item_category: arrayOf(PropTypes.shape),
+    uid: PropTypes.shape(),
   }).isRequired,
 };

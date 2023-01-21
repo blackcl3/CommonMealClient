@@ -1,4 +1,6 @@
-import PropTypes, { bool, string, number } from 'prop-types';
+import PropTypes, {
+  bool, string, number, arrayOf,
+} from 'prop-types';
 import React from 'react';
 import {
   Recycle, PencilSquare, Trash3Fill,
@@ -36,7 +38,14 @@ export default function MyFoodItemCard({ obj, photoURL, onUpdate }) {
         <div className="food-card-title-div">
           <h2>{obj.name}</h2>
         </div>
-        <Card.Subtitle>category: {obj.categoryName}</Card.Subtitle>
+        <Card.Subtitle>
+          category:
+          {obj.food_item_category.map((cat) => (
+            <Button key={cat.category.id} variant="outline-info" disabled className="category-name">
+              {cat.category.name}{' '}
+            </Button>
+          ))}
+        </Card.Subtitle>
         <Card.Subtitle>location: {obj.location}</Card.Subtitle>
         <Card.Subtitle>added: {obj.date}</Card.Subtitle>
         <Card.Text className="food-card-description">description: &quot;{obj.description}&quot;</Card.Text>
@@ -67,6 +76,7 @@ MyFoodItemCard.propTypes = {
     location: string,
     id: number,
     status: string,
+    food_item_category: arrayOf(PropTypes.shape),
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
