@@ -16,25 +16,43 @@ const initialState = {
   photoURL: '',
   description: '',
   date: '',
+  category: '',
 };
 
 function FoodItemForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [categories, setFoodCategories] = useState([]);
-  const [userCategories, setUserCategories] = useState([]);
+  const [optionsForSelect, setOptions] = useState([]);
   const { user } = useAuth();
   const router = useRouter();
 
-  const options = categories.map((category) => ({
-    value: category.id,
-    label: category.name,
-  }));
+  function optionsMap(cat) {
+    const options = cat.map((category) => ({
+      value: category.id,
+      label: category.name,
+    }));
+    return options;
+  }
+
+  function getPageContent() {
+    getFoodCategories().then(setFoodCategories).then(() => { setOptions(optionsMap(categories)); });
+    console.warn(optionsForSelect);
+  }
 
   useEffect(() => {
-    getFoodCategories().then(setFoodCategories).then(options);
-    if (obj.id) setFormInput(obj);
+    getPageContent();
+    if (obj.id) {
+      const categoryArr = [];
+      setFormInput(obj);
+      obj.foodItemCategory.map((foodItemCat) => categoryArr.push(foodItemCat.category));
+      const category = optionsMap(categoryArr);
+      setFormInput((prevState) => ({
+        ...prevState,
+        category,
+      }));
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [obj]);
+  }, [obj, initialState]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,7 +64,7 @@ function FoodItemForm({ obj }) {
 
   const handleSelect = (e) => {
     const category = e;
-    setUserCategories((prevState) => ({
+    setFormInput((prevState) => ({
       ...prevState,
       category,
     }));
@@ -65,14 +83,12 @@ function FoodItemForm({ obj }) {
         ...formInput,
         status: 'unavailable',
       };
-      updateFoodItem(payload)
-        .then(() => { router.push('/food/myFood'); });
+      console.warn(payload);
+    //   updateFoodItem(payload)
+    //     .then(() => { router.push('/food/myFood'); });
     } else {
       const payload = {
         ...formInput, date: date(), uid: user.uid, status: 'unavailable',
-      };
-      const categoryPayload = {
-        ...userCategories,
       };
       createFoodItem(payload).then(() => {
         router.push('/food/myFood');
@@ -103,7 +119,7 @@ function FoodItemForm({ obj }) {
         </FloatingLabel>
       </FormGroup>
       <FormGroup controlId="floatingSelect" className="food-item-form-input">
-        <Select aria-label="category select" name="category" isMulti options={options} onChange={handleSelect} />
+        <Select aria-label="category select" name="category" value={formInput.category} isMulti options={optionsForSelect} onChange={handleSelect} />
       </FormGroup>
       <FormGroup className="food-item-form-input">
         <FloatingLabel label="Date You Got This Item">
@@ -127,7 +143,7 @@ FoodItemForm.propTypes = {
     name: PropTypes.string,
     photoURL: PropTypes.string,
     id: PropTypes.number,
-    food_item_category: PropTypes.arrayOf(PropTypes.shape),
+    foodItemCategory: PropTypes.arrayOf(PropTypes.shape),
     location: PropTypes.string,
     date: PropTypes.string,
   }),

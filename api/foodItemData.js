@@ -28,6 +28,7 @@ const getSingleFoodItem = (foodItemId) => new Promise((resolve, reject) => {
         description: data.description,
         photoURL: data.photo_url,
         location: data.location,
+        foodItemCategory: data.food_item_category,
       });
     })
     .catch(reject);
@@ -48,6 +49,7 @@ const createFoodItem = (foodObj) => new Promise((resolve, reject) => {
     photo_url: foodObj.photoURL,
     status: foodObj.status,
     uid: foodObj.uid,
+    category: foodObj.category,
   };
   axios.post(`${dbUrl}/food`, foodObject)
     .then((response) => resolve(response))
