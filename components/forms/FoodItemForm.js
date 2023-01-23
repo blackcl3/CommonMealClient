@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Button, FloatingLabel, Form, FormGroup,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import Select from 'react-select';
 import { getFoodCategories } from '../../api/categoryData';
 import { createFoodItem, updateFoodItem } from '../../api/foodItemData';
 import { useAuth } from '../../utils/context/authContext';
@@ -11,23 +13,44 @@ import { useAuth } from '../../utils/context/authContext';
 const initialState = {
   location: '',
   name: '',
-  categoryFirebaseKey: '',
   photoURL: '',
   description: '',
-  dateAddedToLocation: '',
-  isPublic: true,
+  date: '',
+  category: '',
 };
 
-function FoodItemForm({ obj }) {
+function FoodItemForm({ obj, categories }) {
   const [formInput, setFormInput] = useState(initialState);
-  const [categories, setFoodCategories] = useState([]);
+  const [optionsForSelect, setOptions] = useState([]);
   const { user } = useAuth();
   const router = useRouter();
 
+  function optionsMap(cat) {
+    const options = cat.map((category) => ({
+      value: category.id,
+      label: category.name,
+    }));
+    return options;
+  }
+
+  function getPageContent() {
+    setOptions(optionsMap(categories));
+  }
+
   useEffect(() => {
-    getFoodCategories().then(setFoodCategories);
-    if (obj.foodItemFirebaseKey) setFormInput(obj);
-  }, [obj]);
+    getPageContent();
+    if (obj.id) {
+      const categoryArr = [];
+      setFormInput(obj);
+      obj.foodItemCategory.map((foodItemCat) => categoryArr.push(foodItemCat.category));
+      const category = optionsMap(categoryArr);
+      setFormInput((prevState) => ({
+        ...prevState,
+        category,
+      }));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [obj, categories]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,20 +60,33 @@ function FoodItemForm({ obj }) {
     }));
   };
 
+  const handleSelect = (e) => {
+    const category = e;
+    setFormInput((prevState) => ({
+      ...prevState,
+      category,
+    }));
+  };
+
   const date = () => {
     const rawDate = new Date();
-    const dateString = rawDate.toLocaleString();
+    const dateString = new Date(rawDate.getTime() - rawDate.getTimezoneOffset() * 60000).toISOString().split('T')[0];
     return dateString;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (obj.foodItemFirebaseKey) {
-      updateFoodItem(formInput)
+    if (obj.id) {
+      const payload = {
+        ...formInput,
+        status: 'unavailable',
+        uid: user.uid,
+      };
+      updateFoodItem(payload)
         .then(() => { router.push('/food/myFood'); });
     } else {
       const payload = {
-        ...formInput, uid: user.uid, dateAddedToDB: date(), status: 'open',
+        ...formInput, date: date(), uid: user.uid, status: 'unavailable',
       };
       createFoodItem(payload).then(() => {
         router.push('/food/myFood');
@@ -59,11 +95,11 @@ function FoodItemForm({ obj }) {
   };
   return (
     <Form onSubmit={handleSubmit} className="food-item-form">
-      <h1 className="food-item-form-h1">{obj.foodItemFirebaseKey ? 'Edit' : 'Create New'} Food Item</h1>
+      <h1 className="food-item-form-h1">{obj.id ? 'Edit' : 'Add'} Food Item</h1>
       <FormGroup controlId="floatingSelect" className="food-item-form-input">
         <FloatingLabel label="Location">
           <Form.Select aria-label="Location Select" name="location" onChange={handleChange} required>
-            <option value={formInput.location || ''}>{obj.foodItemFirebaseKey ? formInput.location : 'Select a Location'}</option>
+            <option value={formInput.location || ''}>{obj.id ? formInput.location : 'Select a Location'}</option>
             <option value="fridge">Fridge</option>
             <option value="freezer">Freezer</option>
             <option value="pantry">Pantry</option>
@@ -81,20 +117,11 @@ function FoodItemForm({ obj }) {
         </FloatingLabel>
       </FormGroup>
       <FormGroup controlId="floatingSelect" className="food-item-form-input">
-        <FloatingLabel label="category" required>
-          <Form.Select aria-label="category select" name="categoryFirebaseKey" onChange={handleChange}>
-            <option value="">Select a Category</option>
-            {categories?.map((category) => (
-              <option key={category.categoryFirebaseKey} value={category.categoryFirebaseKey} selected={obj.categoryFirebaseKey === category.categoryFirebaseKey}>
-                {category.name}
-              </option>
-            ))}
-          </Form.Select>
-        </FloatingLabel>
+        <Select aria-label="category select" name="category" value={formInput.category} isMulti options={optionsForSelect} onChange={handleSelect} />
       </FormGroup>
       <FormGroup className="food-item-form-input">
         <FloatingLabel label="Date You Got This Item">
-          <Form.Control type="date" name="dateAddedToLocation" onChange={handleChange} value={formInput.dateAddedToLocation} />
+          <Form.Control type="date" name="date" onChange={handleChange} value={formInput.date} />
         </FloatingLabel>
       </FormGroup>
       <FormGroup className="food-item-form-input">
@@ -103,7 +130,7 @@ function FoodItemForm({ obj }) {
         </FloatingLabel>
       </FormGroup>
       <div>
-        <Button type="submit">{obj.foodItemFirebaseKey ? 'Update' : 'Add New'} Food Item</Button>
+        <Button type="submit">{obj.id ? 'Update' : 'Add New'} Food Item</Button>
       </div>
     </Form>
   );
@@ -113,12 +140,12 @@ FoodItemForm.propTypes = {
   obj: PropTypes.shape({
     name: PropTypes.string,
     photoURL: PropTypes.string,
-    foodItemFirebaseKey: PropTypes.string,
-    categoryFirebaseKey: PropTypes.string,
+    id: PropTypes.number,
+    foodItemCategory: PropTypes.arrayOf(PropTypes.shape),
     location: PropTypes.string,
-    dateAddedToLocation: PropTypes.string,
-    dateAddedToDB: PropTypes.string,
+    date: PropTypes.string,
   }),
+  categories: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
 
 FoodItemForm.defaultProps = {

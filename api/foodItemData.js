@@ -4,7 +4,8 @@ import { clientCredentials } from '../utils/client';
 const dbUrl = clientCredentials.databaseURL;
 
 const getUserFoodItems = (uid) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/food.json?orderBy="uid"&equalTo="${uid}"`)
+  axios
+    .get(`${dbUrl}/food?uid=${uid}`)
     .then((response) => {
       if (response) {
         resolve(Object.values(response.data));
@@ -15,43 +16,65 @@ const getUserFoodItems = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getSingleFoodItem = (foodItemFirebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/food/${foodItemFirebaseKey}.json`)
-    .then((response) => resolve(response.data))
+const getSingleFoodItem = (foodItemId) => new Promise((resolve, reject) => {
+  axios
+    .get(`${dbUrl}/food/${foodItemId}`)
+    .then((response) => response.data)
+    .then((data) => {
+      resolve({
+        id: data.id,
+        name: data.name,
+        date: data.date,
+        description: data.description,
+        photoURL: data.photo_url,
+        location: data.location,
+        foodItemCategory: data.food_item_category,
+      });
+    })
     .catch(reject);
 });
 
 const getPublicFoodItems = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/food.json?orderBy="status"&equalTo="available"`)
-    .then((response) => {
-      if (response) {
-        resolve(Object.values(response.data));
-      } else {
-        resolve([]);
-      }
-    })
+  axios.get(`${dbUrl}/food?status=available`)
+    .then((response) => resolve(Object.values(response.data)))
     .catch(reject);
 });
 
 const createFoodItem = (foodObj) => new Promise((resolve, reject) => {
-  axios.post(`${dbUrl}/food.json`, foodObj)
-    .then((response) => {
-      const payload = { foodItemFirebaseKey: response.data.name };
-      axios.patch(`${dbUrl}/food/${payload.foodItemFirebaseKey}.json`, payload)
-        .then(resolve);
-    })
+  const foodObject = {
+    date: foodObj.date,
+    description: foodObj.description,
+    location: foodObj.location,
+    name: foodObj.name,
+    photo_url: foodObj.photoURL,
+    status: foodObj.status,
+    uid: foodObj.uid,
+    category: foodObj.category,
+  };
+  axios.post(`${dbUrl}/food`, foodObject)
+    .then((response) => resolve(response))
     .catch(reject);
 });
 
-const updateFoodItem = (foodObj, uid) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/food/${foodObj.foodItemFirebaseKey}.json`, foodObj)
-    .then(() => getUserFoodItems(uid).then(resolve))
+const updateFoodItem = (foodObj) => new Promise((resolve, reject) => {
+  const foodObject = {
+    id: foodObj.id,
+    date: foodObj.date,
+    description: foodObj.description,
+    location: foodObj.location,
+    name: foodObj.name,
+    photo_url: foodObj.photoURL,
+    status: foodObj.status,
+    uid: foodObj.uid,
+  };
+  axios.put(`${dbUrl}/food/${foodObject.id}`, foodObject)
+    .then(resolve)
     .catch(reject);
 });
 
-const deleteFoodItem = (foodItemFirebaseKey, uid) => new Promise((resolve, reject) => {
-  axios.delete(`${dbUrl}/food/${foodItemFirebaseKey}.json`)
-    .then(() => getUserFoodItems(uid).then(resolve))
+const deleteFoodItem = (foodItemId) => new Promise((resolve, reject) => {
+  axios.delete(`${dbUrl}/food/${foodItemId}`)
+    .then(resolve)
     .catch(reject);
 });
 

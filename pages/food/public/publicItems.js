@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { getPublicFoodItems } from '../../../api/foodItemData';
 import { getPublicFoodItemAndCategories } from '../../../api/mergedData';
 import PublicFoodItemCard from '../../../components/PublicFoodItemCard';
 
@@ -7,7 +8,7 @@ export default function PublicItems() {
   const [foodObject, setFoodObject] = useState();
 
   const getPublicFoods = () => {
-    getPublicFoodItemAndCategories().then(setFoodObject);
+    getPublicFoodItems().then(setFoodObject);
   };
 
   useEffect(() => {
@@ -19,7 +20,7 @@ export default function PublicItems() {
       <h1 className="publicFoodItemTitle">FOOD FOR SALE (ACTUALLY, IT’S FREE)</h1>
       <div className="publicItemsDiv">
         {foodObject?.map((foodObj) => (
-          <PublicFoodItemCard key={foodObj.foodItemFirebaseKey} obj={foodObj} onChange={getPublicFoodItemAndCategories} onUpdate={getPublicFoods} />
+          <PublicFoodItemCard key={foodObj.id} obj={foodObj} onChange={getPublicFoodItemAndCategories} onUpdate={getPublicFoods} />
         ))}
       </div>
     </>

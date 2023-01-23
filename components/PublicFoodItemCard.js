@@ -1,5 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { useRouter } from 'next/router';
-import PropTypes, { bool, string } from 'prop-types';
+import PropTypes, {
+  arrayOf, bool, number, shape, string,
+} from 'prop-types';
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { updateFoodItem } from '../api/foodItemData';
@@ -21,46 +24,57 @@ export default function PublicFoodItemCard({ obj }) {
   };
 
   const switchCardOwner = () => {
-    if (obj.uid === user.uid) {
+    if (obj.uid.uid === user.uid) {
       window.confirm('You already gave this away!');
     } else if (window.confirm(`This ${obj.name} looks great! Be sure to use it.`)) {
-      const transactionObj = {
-        fromUid: obj.uid,
-        toUid: user.uid,
-        dateCreated: date(),
-        foodItemFirebaseKey: obj.foodItemFirebaseKey,
-        categoryFirebaseKey: obj.categoryFirebaseKey,
-        categoryName: obj.categoryName,
+      // const transactionObj = {
+      //   fromUid: obj.uid,
+      //   toUid: user.uid,
+      //   dateCreated: date(),
+      //   foodItemFirebaseKey: obj.foodItemFirebaseKey,
+      //   categoryFirebaseKey: obj.categoryFirebaseKey,
+      //   categoryName: obj.categoryName,
+      // };
+      const updatedObj = {
+        id: obj.id,
+        date: obj.date,
+        description: obj.description,
+        location: obj.location,
+        name: obj.name,
+        photoURL: obj.photo_url,
+        status: obj.status,
+        uid: obj.uid,
       };
-      const updatedObj = obj;
-      updatedObj.status = 'open';
+      updatedObj.status = 'unavailable';
       updatedObj.uid = user.uid;
-      createTransaction(transactionObj).then(updateFoodItem(updatedObj, user.uid))
-        .then(() => {
-          router.push('/food/myFood');
-        });
+      updateFoodItem(updatedObj).then(() => {
+        router.push('/food/myFood');
+      });
     }
   };
 
-  // to do: call needs to get users by UID to reflect displayName; right now, it's just showing my display name
-  // may need to add display name to food obj; otherwise I'll need a merge call for users/uids (may be implementing anyways)
-
   return (
     <Card className="public-food-item-card">
-      <Card.Img variant="top" src={obj.photoURL} onClick={handleClick} />
+      <Card.Img variant="top" src={obj.photo_url} onClick={handleClick} />
       <Card.Body className="food-card-body">
         <div className="food-card-title-div">
           <h2>{obj.name}</h2>
         </div>
-        <Card.Subtitle>category: {obj.categoryName}</Card.Subtitle>
+        <Card.Subtitle>categories: {obj.food_item_category?.map((foodItemObj) => (<Button key={foodItemObj.category.id} variant="outline-info" disabled className="category-name">{foodItemObj.category.name}</Button>))}</Card.Subtitle>
         <Card.Subtitle>location: {obj.location}</Card.Subtitle>
-        <Card.Subtitle>added: {obj.dateAddedToDB}</Card.Subtitle>
-        {/* <Card.Subtitle>donated by: TO DO</Card.Subtitle> */}
+        <Card.Subtitle>added: {obj.date}</Card.Subtitle>
+        <Card.Subtitle>donated by: {obj.uid.name} </Card.Subtitle>
         <Card.Text>description: &quot;{obj.description}&quot;</Card.Text>
         <div className="public-items-select-btn-div">
-          <Button variant="success" className="public-items-select-btn" onClick={switchCardOwner}>
-            SELECT
-          </Button>
+          {obj.uid.uid === user.uid ? (
+            <Button variant="success" disabled className="public-items-select-btn" onClick={switchCardOwner}>
+              SELECT
+            </Button>
+          ) : (
+            <Button variant="success" className="public-items-select-btn" onClick={switchCardOwner}>
+              SELECT
+            </Button>
+          )}
         </div>
       </Card.Body>
     </Card>
@@ -69,15 +83,16 @@ export default function PublicFoodItemCard({ obj }) {
 
 PublicFoodItemCard.propTypes = {
   obj: PropTypes.shape({
+    id: number,
     description: string,
     name: string,
     categoryFirebaseKey: string,
-    photoURL: string,
-    isPublic: bool,
-    dateAddedToDB: string,
+    photo_url: string,
+    status: string,
+    date: string,
     location: string,
     foodItemFirebaseKey: string,
-    categoryName: string,
-    uid: string,
+    food_item_category: arrayOf(PropTypes.shape),
+    uid: PropTypes.shape(),
   }).isRequired,
 };

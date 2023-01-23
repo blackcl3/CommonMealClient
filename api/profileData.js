@@ -34,7 +34,6 @@ const getSingleUserProfile = (uid) => new Promise((resolve, reject) => {
 
 const createUserProfile = (profileObj) => new Promise((resolve, reject) => {
   const userObj = {
-    id: profileObj.id,
     name: profileObj.name,
     uid: profileObj.uid,
     photo_url: profileObj.photoURL,
@@ -57,7 +56,6 @@ const updateProfile = (profileObj, uid) => new Promise((resolve, reject) => {
     address: profileObj.address,
     neighborhood: Number(profileObj.neighborhood),
   };
-  console.warn(uid);
   axios
     .put(`${dbUrl}/users/${userObj.id}`, userObj)
     .then(() => getSingleUserProfile(uid).then(resolve))
