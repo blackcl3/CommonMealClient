@@ -17,7 +17,8 @@ export default function PublicItems() {
   }, []);
   return (
     <>
-      <h1 className="publicFoodItemTitle">FOOD FOR SALE (ACTUALLY, IT’S FREE)</h1>
+      <h1 className="publicFoodItemTitle">FOOD FOR SALE</h1>
+      <h3 className="publicFoodItemTitle">(ACTUALLY, IT’S FREE)</h3>
       <div className="publicItemsDiv">
         {foodObject?.map((foodObj) => (
           <PublicFoodItemCard key={foodObj.id} obj={foodObj} onChange={getPublicFoodItemAndCategories} onUpdate={getPublicFoods} />

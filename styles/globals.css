@@ -182,3 +182,8 @@ footer {
 .public-food-item-card-individual {
   margin: auto;
 }
+
+.neighborhood-title {
+  text-align: center;
+  margin: 20px 0;
+}
