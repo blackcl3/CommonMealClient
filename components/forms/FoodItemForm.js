@@ -88,9 +88,10 @@ function FoodItemForm({ obj, categories }) {
       const payload = {
         ...formInput, date: date(), uid: user.uid, status: 'unavailable',
       };
-      createFoodItem(payload).then(() => {
-        router.push('/food/myFood');
-      });
+      console.warn(payload);
+      // createFoodItem(payload).then(() => {
+      //   router.push('/food/myFood');
+      // });
     }
   };
   return (
