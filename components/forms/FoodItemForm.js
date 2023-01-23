@@ -80,6 +80,7 @@ function FoodItemForm({ obj, categories }) {
       const payload = {
         ...formInput,
         status: 'unavailable',
+        uid: user.uid,
       };
       updateFoodItem(payload)
         .then(() => { router.push('/food/myFood'); });
