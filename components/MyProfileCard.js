@@ -1,20 +1,32 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
+import { useAuth } from '../utils/context/authContext';
 
 export default function MyProfileCard({
-  name, address, photoURL, neighborhood, uid,
+  name, address, photoURL, neighborhood, neighborhoodID, uid,
 }) {
+  const { user } = useAuth();
   return (
     <Card className="myProfileCard">
       <Card.Img variant="top" src={photoURL} className="myProfileImage" />
       <Card.Body>
         <Card.Title>Name: {name} </Card.Title>
         <Card.Text>Address: {address}</Card.Text>
-        <Card.Text>Neighborhood: {neighborhood}</Card.Text>
-        <Button variant="primary" href={`/profile/edit/${uid}`}>
-          Edit Profile
-        </Button>
+        <Link variant="link" href={`/neighborhood/${neighborhoodID}`} passHref>
+          <div>Neighborhood: {neighborhood}</div>
+        </Link>
+        {
+          uid === user.uid ? (
+            <Button variant="primary" href={`/profile/edit/${uid}`}>
+              Edit Profile
+            </Button>
+          )
+            : (<></>)
+
+        }
+
       </Card.Body>
     </Card>
   );

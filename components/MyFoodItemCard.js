@@ -6,7 +6,6 @@ import {
   Recycle, PencilSquare, Trash3Fill,
 } from 'react-bootstrap-icons';
 import { Button, Card } from 'react-bootstrap';
-// eslint-disable-next-line no-unused-vars
 import { useRouter } from 'next/router';
 import { updateFoodItem, deleteFoodItem } from '../api/foodItemData';
 

@@ -39,6 +39,11 @@ export default function NavBar() {
                 </Link>
               </Nav.Link>
               <Nav.Link eventKey="4" className="nav-item">
+                <Link passHref href="/neighborhood/">
+                  <span className="nav-link">Neighborhoods</span>
+                </Link>
+              </Nav.Link>
+              <Nav.Link eventKey="5" className="nav-item">
                 <Link passHref href="/profile/myProfile">
                   <span className="nav-link">My Profile Page</span>
                 </Link>
