@@ -66,6 +66,7 @@ const updateFoodItem = (foodObj) => new Promise((resolve, reject) => {
     photo_url: foodObj.photoURL,
     status: foodObj.status,
     uid: foodObj.uid,
+    category: foodObj.category,
   };
   axios.put(`${dbUrl}/food/${foodObject.id}`, foodObject)
     .then(resolve)
