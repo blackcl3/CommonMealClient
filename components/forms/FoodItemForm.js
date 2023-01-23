@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Button, FloatingLabel, Form, FormGroup,
 } from 'react-bootstrap';
@@ -19,9 +19,8 @@ const initialState = {
   category: '',
 };
 
-function FoodItemForm({ obj }) {
+function FoodItemForm({ obj, categories }) {
   const [formInput, setFormInput] = useState(initialState);
-  const [categories, setFoodCategories] = useState([]);
   const [optionsForSelect, setOptions] = useState([]);
   const { user } = useAuth();
   const router = useRouter();
@@ -35,8 +34,7 @@ function FoodItemForm({ obj }) {
   }
 
   function getPageContent() {
-    getFoodCategories().then(setFoodCategories).then(() => { setOptions(optionsMap(categories)); });
-    console.warn(optionsForSelect);
+    setOptions(optionsMap(categories));
   }
 
   useEffect(() => {
@@ -52,7 +50,7 @@ function FoodItemForm({ obj }) {
       }));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [obj, initialState]);
+  }, [obj, categories]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -83,9 +81,8 @@ function FoodItemForm({ obj }) {
         ...formInput,
         status: 'unavailable',
       };
-      console.warn(payload);
-    //   updateFoodItem(payload)
-    //     .then(() => { router.push('/food/myFood'); });
+      updateFoodItem(payload)
+        .then(() => { router.push('/food/myFood'); });
     } else {
       const payload = {
         ...formInput, date: date(), uid: user.uid, status: 'unavailable',
@@ -147,6 +144,7 @@ FoodItemForm.propTypes = {
     location: PropTypes.string,
     date: PropTypes.string,
   }),
+  categories: PropTypes.arrayOf(PropTypes.shape).isRequired,
 };
 
 FoodItemForm.defaultProps = {

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useRouter } from 'next/router';
 import PropTypes, {
-  arrayOf, bool, shape, string,
+  arrayOf, bool, number, shape, string,
 } from 'prop-types';
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
@@ -35,13 +35,21 @@ export default function PublicFoodItemCard({ obj }) {
       //   categoryFirebaseKey: obj.categoryFirebaseKey,
       //   categoryName: obj.categoryName,
       // };
-      // const updatedObj = obj;
-      // updatedObj.status = 'unavailable';
-      // updatedObj.uid = user.uid;
-      // updateFoodItem(updatedObj, user.uid))
-      //   .then(() => {
-      //     router.push('/food/myFood');
-      //   });
+      const updatedObj = {
+        id: obj.id,
+        date: obj.date,
+        description: obj.description,
+        location: obj.location,
+        name: obj.name,
+        photoURL: obj.photo_url,
+        status: obj.status,
+        uid: obj.uid,
+      };
+      updatedObj.status = 'unavailable';
+      updatedObj.uid = user.uid;
+      updateFoodItem(updatedObj).then(() => {
+        router.push('/food/myFood');
+      });
     }
   };
 
@@ -75,11 +83,12 @@ export default function PublicFoodItemCard({ obj }) {
 
 PublicFoodItemCard.propTypes = {
   obj: PropTypes.shape({
+    id: number,
     description: string,
     name: string,
     categoryFirebaseKey: string,
     photo_url: string,
-    isPublic: bool,
+    status: string,
     date: string,
     location: string,
     foodItemFirebaseKey: string,

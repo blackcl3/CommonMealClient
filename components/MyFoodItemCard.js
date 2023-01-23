@@ -9,10 +9,8 @@ import { Button, Card } from 'react-bootstrap';
 // eslint-disable-next-line no-unused-vars
 import { useRouter } from 'next/router';
 import { updateFoodItem, deleteFoodItem } from '../api/foodItemData';
-import { useAuth } from '../utils/context/authContext';
 
 export default function MyFoodItemCard({ obj, photoURL, onUpdate }) {
-  const { user } = useAuth();
   const router = useRouter();
 
   const deleteFoodItemCard = () => {
@@ -25,7 +23,7 @@ export default function MyFoodItemCard({ obj, photoURL, onUpdate }) {
     if (window.confirm(`You sure you want to give away your ${obj.name}? Looks pretty good!`)) {
       const updatedObj = obj;
       updatedObj.status = 'available';
-      updateFoodItem(updatedObj, user.uid).then(() => {
+      updateFoodItem(updatedObj).then(() => {
         router.push('/food/public/publicItems');
       });
     }
