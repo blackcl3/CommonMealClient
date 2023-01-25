@@ -68,7 +68,6 @@ const updateFoodItem = (foodObj) => new Promise((resolve, reject) => {
     uid: foodObj.uid,
     category: foodObj.category,
   };
-  console.warn(foodObject);
   axios.put(`${dbUrl}/food/${foodObject.id}`, foodObject)
     .then(resolve)
     .catch(reject);
