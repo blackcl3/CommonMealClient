@@ -1,20 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-import { getSingleUserProfile } from '../api/profileData';
 import { useAuth } from '../utils/context/authContext';
 
 function Home() {
   const { user } = useAuth();
-  const [userProfile, setUserProfile] = useState({});
-
-  const getUserProfile = () => {
-    getSingleUserProfile(user.uid).then(setUserProfile);
-  };
 
   useEffect(() => {
     document.title = 'CommonMeal';
-    getUserProfile();
-    console.warn(userProfile);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

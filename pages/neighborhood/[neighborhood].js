@@ -21,7 +21,7 @@ export default function NeighborhoodPage() {
     <>
       <h1 className="neighborhood-title">{neighborhoodProfile.name}</h1>
       {neighborhoodProfile.uid?.map((profile) => (
-        <MyProfileCard name={profile.name} address={profile.address} photoURL={profile.photo_url} neighborhood={neighborhoodProfile.name} uid={profile.uid} />
+        <MyProfileCard key={profile.id} name={profile.name} address={profile.address} photoURL={profile.photo_url} neighborhood={neighborhoodProfile.name} uid={profile.uid} />
       ))}
     </>
   );

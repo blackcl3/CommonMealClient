@@ -12,6 +12,15 @@ export default function MyFoodPage() {
   const [filteredFood, setFilteredFood] = useState([]);
   const [categories, setCategories] = useState([]);
   const { user } = useAuth();
+  let category = [];
+
+  function optionsMap(cat) {
+    const options = cat.map((categoryArr) => ({
+      value: categoryArr.id,
+      label: categoryArr.name,
+    }));
+    return options;
+  }
 
   const getPageContent = () => {
     getFoodCategories().then(setCategories);
@@ -19,6 +28,7 @@ export default function MyFoodPage() {
       setFoodObject(response);
       setFilteredFood(response);
     });
+    category = optionsMap(categories);
   };
 
   const handleClick = (e) => {
@@ -82,7 +92,7 @@ export default function MyFoodPage() {
         </div>
         <div className="food-card-container container">
           {filteredFood?.map((foodItem) => (
-            <MyFoodItemCard key={foodItem.id} obj={foodItem} photoURL={foodItem.photo_url} onChange={getFoodCategories} onUpdate={getPageContent} />
+            <MyFoodItemCard key={foodItem.id} name={foodItem.name} photoURL={foodItem.photo_url} location={foodItem.location} date={foodItem.date} description={foodItem.description} id={foodItem.id} status={foodItem.status} category={foodItem.food_item_category} onUpdate={getPageContent} uid={user.uid} />
           ))}
         </div>
       </div>
