@@ -68,7 +68,20 @@ const updateFoodItem = (foodObj) => new Promise((resolve, reject) => {
     uid: foodObj.uid,
     category: foodObj.category,
   };
+  console.warn(foodObject);
   axios.put(`${dbUrl}/food/${foodObject.id}`, foodObject)
+    .then(resolve)
+    .catch(reject);
+});
+
+const giveAwayFood = (foodObject) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/food/${foodObject.id}/giveaway`)
+    .then(resolve)
+    .catch(reject);
+});
+
+const claimItem = (foodObject) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/food/${foodObject.id}/claim`, foodObject)
     .then(resolve)
     .catch(reject);
 });
@@ -80,5 +93,5 @@ const deleteFoodItem = (foodItemId) => new Promise((resolve, reject) => {
 });
 
 export {
-  getUserFoodItems, getSingleFoodItem, getPublicFoodItems, createFoodItem, updateFoodItem, deleteFoodItem,
+  getUserFoodItems, getSingleFoodItem, getPublicFoodItems, createFoodItem, updateFoodItem, giveAwayFood, claimItem, deleteFoodItem,
 };

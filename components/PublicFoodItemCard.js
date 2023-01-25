@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useRouter } from 'next/router';
 import PropTypes, {
-  arrayOf, bool, number, shape, string,
+  arrayOf, bool, number, object, shape, string,
 } from 'prop-types';
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { updateFoodItem } from '../api/foodItemData';
-import { createTransaction } from '../api/transactionData';
+import { claimItem, updateFoodItem } from '../api/foodItemData';
 import { useAuth } from '../utils/context/authContext';
 
 export default function PublicFoodItemCard({ obj }) {
@@ -23,6 +22,13 @@ export default function PublicFoodItemCard({ obj }) {
     return dateString;
   };
 
+  function optionsMap(cat) {
+    const options = cat.map((categoryArr) => ({
+      value: categoryArr.id,
+      label: categoryArr.name,
+    }));
+    return options;
+  }
   const switchCardOwner = () => {
     if (obj.uid.uid === user.uid) {
       window.confirm('You already gave this away!');
@@ -37,17 +43,10 @@ export default function PublicFoodItemCard({ obj }) {
       // };
       const updatedObj = {
         id: obj.id,
-        date: obj.date,
-        description: obj.description,
-        location: obj.location,
-        name: obj.name,
-        photoURL: obj.photo_url,
-        status: obj.status,
         uid: obj.uid,
       };
-      updatedObj.status = 'unavailable';
       updatedObj.uid = user.uid;
-      updateFoodItem(updatedObj).then(() => {
+      claimItem(updatedObj).then(() => {
         router.push('/food/myFood');
       });
     }
@@ -92,6 +91,7 @@ PublicFoodItemCard.propTypes = {
     date: string,
     location: string,
     foodItemFirebaseKey: string,
+    category: arrayOf(PropTypes.shape),
     food_item_category: arrayOf(PropTypes.shape),
     uid: PropTypes.shape(),
   }).isRequired,
